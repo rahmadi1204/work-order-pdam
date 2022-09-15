@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="{{ asset('/assets/login') }}/css/style.css">
-
+    <link rel="shortcut icon" href="{{ asset('/images/logo-pdam.png') }}" type="image/x-icon">
 </head>
 
 <body class="img js-fullheight" style="background-image: url({{ asset('/images/pdam-tamansari.jpg') }});">

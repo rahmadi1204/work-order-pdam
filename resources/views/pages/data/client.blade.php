@@ -25,13 +25,6 @@
                             <a href="{{ route('client') }}" class="btn btn-info"><i class="fa fa-sync-alt"> Refresh</i></a>
                             <a href="{{ route('client.create') }}" class="btn btn-primary"><i class="fa fa-plus"> Tambah
                                     Data</i></a>
-                            {{-- <a href="{{ route('client.export') }}" class="btn btn-success"><i class="fa fa-file-excel">
-                                    Export
-                                    Excel</i></a>
-                            <a href="{{ route('client.pdf') }}" class="btn btn-danger"><i class="fa fa-file-pdf"> Export
-                                    PDF</i></a>
-                            <a href="{{ route('client.print') }}" class="btn btn-warning"><i class="fa fa-print">
-                                    Print</i></a> --}}
                         </div>
                     </div>
                     <div class="row">
@@ -203,6 +196,13 @@
 
     </section>
     <!-- /.content -->
+    {{-- <a href="{{ route('client.export') }}" class="btn btn-success"><i class="fa fa-file-excel">
+                                    Export
+                                    Excel</i></a>
+                            <a href="{{ route('client.pdf') }}" class="btn btn-danger"><i class="fa fa-file-pdf"> Export
+                                    PDF</i></a>
+                            <a href="{{ route('client.print') }}" class="btn btn-warning"><i class="fa fa-print">
+                                    Print</i></a> --}}
 @endsection
 @section('modal')
 @endsection

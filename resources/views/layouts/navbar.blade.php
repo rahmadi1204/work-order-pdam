@@ -123,10 +123,11 @@
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        {{ auth()->user()->name ?? '' }} <i class="fas fa-user"></i>
+                        <i class="fas fa-user"></i>
+                        {{ auth()->user()->name ?? '' }}
+                        <i class="fas fa-caret-down"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">{{ strtoupper(auth()->user()->role ?? '') }}</span>
                         <a href="#" class="dropdown-item" id="btn-logout">
                             <i class="fas fa-power-off text-danger"></i> &nbsp; Logout
                         </a>

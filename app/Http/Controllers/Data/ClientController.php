@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    // view halaman client
     public function index()
     {
         $title = 'Data Pelanggan';
@@ -17,6 +18,7 @@ class ClientController extends Controller
             'clients',
         ]));
     }
+    // proses cari data client
     public function search(Request $request)
     {
         $title = 'Data Pelanggan';
@@ -36,6 +38,7 @@ class ClientController extends Controller
             'clients',
         ]));
     }
+    // proses filter status client
     public function filter(Request $request)
     {
         $title = 'Data Pelanggan';
@@ -47,6 +50,13 @@ class ClientController extends Controller
         return view('pages.data.client', compact([
             'title',
             'clients',
+        ]));
+    }
+    public function create()
+    {
+        $title = 'Tambah Data Pelanggan';
+        return view('pages.data.client_create', compact([
+            'title',
         ]));
     }
 }
