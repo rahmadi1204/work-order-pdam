@@ -17,15 +17,16 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->dateTime('tgl_masuk')->nullable();
-            $table->string('name')->nullable();
+            $table->string('nama')->nullable();
             $table->string('no_sambungan')->unique();
             $table->string('id_pelanggan')->unique();
             $table->string('no_telpon')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('no_urut')->nullable();
             $table->text('alamat');
+            $table->string('id_area')->nullable();
             $table->string('id_wilayah')->nullable();
-            $table->string('id_kelurahan')->nullable();
+            $table->string('id_jalan')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

@@ -52,10 +52,11 @@ class ClientController extends Controller
             'clients',
         ]));
     }
+    // form tambah client
     public function create()
     {
         $title = 'Tambah Data Pelanggan';
-        return view('pages.data.client_create', compact([
+        return view('pages.data.client_form', compact([
             'title',
         ]));
     }

@@ -27,32 +27,19 @@ class ClientImport implements ToCollection, WithHeadingRow, WithChunkReading, Wi
     public function collection(Collection $collection)
     {
         foreach ($collection as $row) {
-            // $import = Client::updateOrCreate([
-            //     'no_sambungan' => $row['nosambungan'],
-            // ] . [
-            //     'tgl_masuk' => $this->transformDate($row['tglmasuk']) ?? now(),
-            //     'id_pelanggan' => $row['idpelanggan'] ?? date('YmdHis'),
-            //     'no_telpon' => $row['telp'] ?? null,
-            //     'no_hp' => $row['hp'] ?? null,
-            //     'no_urut' => $row['nourut'] ?? null,
-            //     'alamat' => $row['alamat'] ?? null,
-            //     'id_wilayah' => $row['idwilayah'] ?? null,
-            //     'is_active' => $row['aktif'] ?? null,
-            //     'latitude' => $row['LongCoordinate'] ?? null,
-            //     'longitude' => $row['LongCoordinate'] ?? null,
-            // ]);
             DB::table('clients')->upsert([
                 'uuid' => $row['uuid'] ?? IdGenerator::generate(['table' => 'clients', 'field' => 'uuid', 'length' => 12, 'prefix' => 'CLN-', 'reset_on_prefix_change' => true]),
-                'no_sambungan' => $row['nosambungan'],
                 'tgl_masuk' => $this->transformDate($row['tglmasuk']) ?? now(),
+                'nama' => $row['nama'] ?? null,
+                'no_sambungan' => $row['nosambungan'],
                 'id_pelanggan' => $row['idpelanggan'] ?? date('YmdHis'),
-                'name' => $row['nama'] ?? null,
                 'no_telpon' => $row['telp'] ?? null,
                 'no_hp' => $row['hp'] ?? null,
                 'no_urut' => $row['nourut'] ?? null,
                 'alamat' => $row['alamat'] ?? null,
-                'id_wilayah' => $row['idwilayah'] ?? null,
-                'id_kelurahan' => $row['idkelurahan'] ?? null,
+                'id_area' => $row['idwilayah'] ?? null,
+                'id_wilayah' => $row['idkelurahan'] ?? null,
+                'id_jalan' => $row['idjalan'] ?? null,
                 'is_active' => $row['aktif'] ?? null,
                 'latitude' => $row['LongCoordinate'] ?? null,
                 'longitude' => $row['LongCoordinate'] ?? null,

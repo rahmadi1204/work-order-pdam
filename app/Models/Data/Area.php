@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Client extends Model
+class Area extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
@@ -16,10 +16,10 @@ class Client extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->uuid = IdGenerator::generate(['table' => 'clients', 'field' => 'uuid', 'length' => 12, 'prefix' => 'CLN-', 'reset_on_prefix_change' => true]);
+            $model->uuid = IdGenerator::generate(['table' => 'areas', 'field' => 'uuid', 'length' => 12, 'prefix' => 'KEC-', 'reset_on_prefix_change' => true]);
         });
     }
-    public function nama(): Attribute
+    public function namaArea(): Attribute
     {
         return new Attribute(
             get:fn($value) => strtoupper($value),

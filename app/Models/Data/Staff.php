@@ -2,13 +2,14 @@
 
 namespace App\Models\Data;
 
+use App\Models\Data\StaffCategory;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Client extends Model
+class Staff extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
@@ -16,7 +17,7 @@ class Client extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->uuid = IdGenerator::generate(['table' => 'clients', 'field' => 'uuid', 'length' => 12, 'prefix' => 'CLN-', 'reset_on_prefix_change' => true]);
+            $model->uuid = IdGenerator::generate(['table' => 'staff', 'field' => 'uuid', 'length' => 12, 'prefix' => 'KRY-', 'reset_on_prefix_change' => true]);
         });
     }
     public function nama(): Attribute
@@ -25,5 +26,9 @@ class Client extends Model
             get:fn($value) => strtoupper($value),
             set:fn($value) => $value,
         );
+    }
+    public function category()
+    {
+        return $this->belongsTo(StaffCategory::class, 'category_id', 'uuid');
     }
 }

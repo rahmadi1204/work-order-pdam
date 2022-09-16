@@ -52,9 +52,9 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{ number_format($countClients) }}</h3>
+                            <h3>{{ number_format($countStaffs) }}</h3>
 
-                            <p>Pelanggan</p>
+                            <p>Karyawan</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
