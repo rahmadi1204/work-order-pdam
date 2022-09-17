@@ -16,8 +16,15 @@
             window.location.reload();
         });
     });
-</script>
-<script>
+    $('form').submit(function(e) {
+        let text = $(this).attr('data-text');
+        $('button[type=submit]').attr('disabled', true);
+        $('button[type=submit]').html('<i class="fas fa-spinner fa-spin"></i> Please Wait...');
+        setTimeout(() => {
+            $('button[type=submit]').attr('disabled', false);
+            $('button[type=submit]').html(text);
+        }, 5000);
+    });
     var Toast = Swal.mixin({
         toast: true,
         position: 'top-end',

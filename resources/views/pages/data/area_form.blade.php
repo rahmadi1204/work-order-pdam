@@ -40,7 +40,7 @@
                                         @foreach ($areas as $item)
                                             <option value="{{ $item->kode_area }}"
                                                 {{ old('data_area') == $item->kode_area ? 'selected' : '' }}
-                                                {{ $data->kode_area == $item->kode_area ? 'selected' : '' }}
+                                                {{ isset($data) && $data->kode_area == $item->kode_area ? 'selected' : '' }}
                                                 data-name="{{ $item->nama_area }}">
                                                 {{ $item->nama_area }}</option>
                                         @endforeach
@@ -159,7 +159,19 @@
             let name = $(this).find(':selected').data('name');
             $('#nama_area').val(name);
             $('#kode_area').val(kode);
+            $('#kode_wilayah').val('');
+            $('#kode_jalan').val('');
+            $('#nama_jalan').val('');
             getWilayah(kode);
+        });
+        $('#kode_area_wilayah').change(function(e) {
+            e.preventDefault();
+            let kode = $(this).val();
+            $('#kode_jalan').val(kode + '.');
+            $('#kode_jalan').focus();
+            $('#kode_wilayah').val(kode);
+            $('#nama_jalan').val('');
+            getJalan(kode);
         });
 
         function getWilayah(kode) {
@@ -228,14 +240,6 @@
                 }
             });
         }
-        $('#kode_area_wilayah').change(function(e) {
-            e.preventDefault();
-            let kode = $(this).val();
-            $('#kode_jalan').val(kode + '.');
-            $('#kode_wilayah').val(kode);
-            $('#nama_jalan').val('');
-            getJalan(kode);
-        });
 
         $('#table-wilayah').DataTable({
             "scrollX": true,
