@@ -12,9 +12,9 @@ class StaffController extends Controller
 {
     //trait upload file
     use UploadFile;
-    // view halaman karyawan
     public function index()
     {
+        // view halaman karyawan
         $title = 'Data Karyawan';
         $staffs = Staff::paginate(10);
         return view('pages.data.staff', compact([
@@ -22,9 +22,9 @@ class StaffController extends Controller
             'staffs',
         ]));
     }
-    // proses cari data karyawan
     public function search(Request $request)
     {
+        // proses cari data karyawan
         $title = 'Data Karyawan';
         $staffs = Staff::query();
         // cari berdasarkan nama
@@ -45,22 +45,9 @@ class StaffController extends Controller
             'staffs',
         ]));
     }
-    // proses filter status client
-    public function filter(Request $request)
-    {
-        $title = 'Data Karyawan';
-        $staffs = Staff::query();
-        if ($request->has('category') && $request->category != 'all') {
-            $staffs->whereRelation('category', 'kategori', $request->category);
-        }
-        $staffs = $staffs->paginate(10);
-        return view('pages.data.staff', compact([
-            'title',
-            'staffs',
-        ]));
-    }
     public function create()
     {
+        // view form tambah karyawan
         $title = 'Tambah Data Karyawan';
         return view('pages.data.staff_form', compact([
             'title',
@@ -68,6 +55,7 @@ class StaffController extends Controller
     }
     public function store(Request $request)
     {
+        // proses validasi form tambah karyawan
         $validated = $request->validate([
             'nama' => 'required',
             'kode_jabatan' => 'required',
@@ -81,7 +69,7 @@ class StaffController extends Controller
             'image.mimes' => 'File harus berupa gambar dengan format jpeg,png,jpg,gif,svg',
             'image.max' => 'Ukuran file maksimal 2MB',
         ]);
-        // dd($request->all());
+        // proses tambah data karyawan
         DB::beginTransaction();
         try {
             $staff = new Staff();
@@ -94,6 +82,7 @@ class StaffController extends Controller
             $staff->golongan = $request->golongan;
             $staff->jenjang = $request->jenjang;
             $staff->status = $request->status;
+            // upload file
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $destinationPath = '/images/staff';
@@ -110,6 +99,7 @@ class StaffController extends Controller
     }
     public function edit($id)
     {
+        // view form edit karyawan
         $title = 'Edit Data Karyawan';
         $data = Staff::where('uuid', $id)->first();
         return view('pages.data.staff_form', compact([
@@ -119,6 +109,7 @@ class StaffController extends Controller
     }
     public function update(Request $request, $id)
     {
+        // proses validasi form edit karyawan
         $validated = request()->validate([
             'nama' => 'required',
             'kode_jabatan' => 'required',
@@ -132,6 +123,7 @@ class StaffController extends Controller
             'image.mimes' => 'File harus berupa gambar dengan format jpeg,png,jpg,gif,svg',
             'image.max' => 'Ukuran file maksimal 2MB',
         ]);
+        // proses update data karyawan
         DB::beginTransaction();
         try {
             $staff = Staff::findOrFail($id);
@@ -144,7 +136,9 @@ class StaffController extends Controller
             $staff->golongan = $request->golongan;
             $staff->jenjang = $request->jenjang;
             $staff->status = $request->status;
+            // upload file
             if ($request->hasFile('image')) {
+                // hapus file lama
                 if ($staff->image != null) {
                     $oldImage = $staff->image;
                     $this->deleteFile($oldImage);
@@ -164,6 +158,7 @@ class StaffController extends Controller
     }
     public function destroy($id)
     {
+        // proses hapus data karyawan
         DB::beginTransaction();
         try {
             $staff = Staff::findOrFail($id);

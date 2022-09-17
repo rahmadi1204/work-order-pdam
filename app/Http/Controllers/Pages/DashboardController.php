@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // view halaman dashboard
         $title = 'Dashboard';
         $countClients = Client::count();
         $countStaffs = Staff::count();

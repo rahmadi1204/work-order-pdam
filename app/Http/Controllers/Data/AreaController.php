@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
-    // view halaman Area
     public function index()
     {
+        // view halaman Area
         $title = 'Data Area';
         $areas = Area::paginate(10);
         return view('pages.data.area', compact([
@@ -19,15 +19,14 @@ class AreaController extends Controller
             'areas',
         ]));
     }
-    // proses cari data Area
     public function search(Request $request)
     {
+        // proses cari data Area
         $title = 'Data Area';
         $areas = Area::query();
         // cari berdasarkan nama
         if ($request->has('name')) {
             $areas->where('nama_area', 'like', '%' . $request->name . '%')
-            // ->orWhere('nama_kelurahan', 'like', '%' . $request->name . '%')
                 ->orWhere('nama_jalan', 'like', '%' . $request->name . '%');
         }
         // cari berdasarkan kode jabatan
@@ -42,6 +41,7 @@ class AreaController extends Controller
     }
     public function wilayah(Request $request)
     {
+        // menampilkan data wilayah
         $kode_wilayah = Area::select('kode_wilayah')
             ->where('kode_area', $request->kode_area)
             ->groupBy('kode_wilayah')
@@ -50,6 +50,7 @@ class AreaController extends Controller
     }
     public function get(Request $request)
     {
+        // menampilkan data area
         try {
             $data = Area::where('kode_wilayah', $request->kode_wilayah)->get();
             return response()->json([
@@ -65,6 +66,7 @@ class AreaController extends Controller
     }
     public function create()
     {
+        // menampilkan form tambah data area
         $title = 'Tambah Data Area';
         $areas = Area::distinct('kode_area')->get(['kode_area', 'nama_area']);
         return view('pages.data.area_form', compact([
@@ -74,6 +76,7 @@ class AreaController extends Controller
     }
     public function store(Request $request)
     {
+        // proses validasi data
         $validated = $request->validate([
             'kode_area' => 'required',
             'kode_wilayah' => 'required',
@@ -86,6 +89,7 @@ class AreaController extends Controller
             'kode_jalan.unique' => 'Kode Jalan sudah ada',
             'nama_jalan.required' => 'Nama Jalan tidak boleh kosong',
         ]);
+        // proses simpan data
         DB::beginTransaction();
         try {
             $store = Area::create([
@@ -105,6 +109,7 @@ class AreaController extends Controller
     }
     public function edit($id)
     {
+        // menampilkan form edit data area
         $title = 'Edit Data Area';
         $areas = Area::distinct('kode_area')->get(['kode_area', 'nama_area']);
         $data = Area::where('uuid', $id)->first();
@@ -116,6 +121,7 @@ class AreaController extends Controller
     }
     public function update(Request $request)
     {
+        // proses validasi data
         $validate = $request->validate([
             'kode_area' => 'required',
             'nama_area' => 'required',
@@ -130,6 +136,7 @@ class AreaController extends Controller
             'kode_jalan.unique' => 'Kode Jalan sudah digunakan',
             'nama_jalan.required' => 'Nama Jalan tidak boleh kosong',
         ]);
+        // proses update data
         DB::beginTransaction();
         try {
             $update = Area::where('uuid', $request->uuid)->update([
@@ -148,6 +155,7 @@ class AreaController extends Controller
     }
     public function destroy($id)
     {
+        // proses hapus data
         DB::beginTransaction();
         try {
             $delete = Area::where('uuid', $id)->delete();

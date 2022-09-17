@@ -199,29 +199,10 @@
 
     </section>
     <!-- /.content -->
-    {{-- <a href="{{ route('staff.export') }}" class="btn btn-success"><i class="fa fa-file-excel">
-                                    Export
-                                    Excel</i></a>
-                            <a href="{{ route('staff.pdf') }}" class="btn btn-danger"><i class="fa fa-file-pdf"> Export
-                                    PDF</i></a>
-                            <a href="{{ route('staff.print') }}" class="btn btn-warning"><i class="fa fa-print">
-                                    Print</i></a> --}}
 @endsection
 @section('modal')
 @endsection
 @section('scripts')
-    <script>
-        $('#filterActive').change(function(e) {
-            e.preventDefault();
-            var filter = $(this).val();
-            var url = "{{ route('staff.filter') }}";
-            if (filter == 'all') {
-                window.location = url;
-            } else {
-                window.location = url + "?status=" + filter;
-            }
-        });
-    </script>
     <script>
         $("#checkbox").click(function(e) {
             if ($(this).is(":checked")) {
