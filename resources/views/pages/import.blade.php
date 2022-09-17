@@ -18,16 +18,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputFile">File input</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile"
-                                                accept=".xlsx, .xls, .csv" name="file">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
-                                    </div>
+                                    <input type="file" class="form-control" accept=".xlsx, .xls, .csv" name="file">
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -39,47 +30,10 @@
                     </div>
                     <!-- /.card -->
                 </div>
-
-                {{-- <div class="col-md-6">
-
-                    <!-- general form elements -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Import Staff Kategory</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form action="#" method="post" enctype="multipart/form-data"
-                            id="form-import-excel-staff-category">
-                            @csrf
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputFile">File input</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile"
-                                                accept=".xlsx, .xls, .csv" name="file">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary import-staff-category">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.card -->
-                </div> --}}
                 <div class="col-md-6">
 
                     <!-- general form elements -->
-                    <div class="card card-primary">
+                    <div class="card card-warning">
                         <div class="card-header">
                             <h3 class="card-title">Import Staff</h3>
                         </div>
@@ -90,22 +44,39 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputFile">File input</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile"
-                                                accept=".xlsx, .xls, .csv" name="file">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
-                                    </div>
+                                    <input type="file" class="form-control" accept=".xlsx, .xls, .csv" name="file">
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary import-staff">Submit</button>
+                                <button type="submit" class="btn btn-warning import-staff">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-6">
+
+                    <!-- general form elements -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Import Wilayah</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="#" method="post" enctype="multipart/form-data" id="form-import-excel-wilayah">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label>
+                                    <input type="file" class="form-control" accept=".xlsx, .xls, .csv" name="file">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success import-wilayah">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -171,15 +142,16 @@
                     })
                 }
             });
+            form[0].reset();
         });
-        $('.import-staff-category').click(function(e) {
+        $('.import-wilayah').click(function(e) {
             e.preventDefault();
-            let form = $('#form-import-excel-staff-category');
+            let form = $('#form-import-excel-wilayah');
             let formData = new FormData(form[0]);
             swalAlert('Importing...', 'Please wait...', 'info');
             $.ajax({
                 type: "post",
-                url: "{{ route('import.staff.category') }}",
+                url: "{{ route('import.wilayah') }}",
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -209,6 +181,7 @@
                     })
                 }
             });
+            form[0].reset();
         });
         $('.import-staff').click(function(e) {
             e.preventDefault();
@@ -247,6 +220,7 @@
                     })
                 }
             });
+            form[0].reset();
         });
     </script>
 @endsection

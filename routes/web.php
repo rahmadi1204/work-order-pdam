@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Data\AreaController;
 use App\Http\Controllers\Data\ClientController;
 use App\Http\Controllers\Master\StaffController;
 use App\Http\Controllers\Pages\DashboardController;
@@ -15,6 +16,21 @@ Route::group(['middleware' => 'auth'], function () {
     // halaman dashboard
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
+    });
+    // halaman data area
+    Route::controller(AreaController::class)->group(function () {
+        Route::get('/areas', 'index')->name('area');
+        Route::get('/areas/get', 'get')->name('area.get');
+        Route::get('/areas/search', 'search')->name('area.search');
+        Route::get('/areas/kelurahan', 'kelurahan')->name('area.kelurahan');
+        Route::get('/areas/create', 'create')->name('area.create');
+        Route::post('/areas/store', 'store')->name('area.store');
+        Route::get('/areas/edit/{id}', 'edit')->name('area.edit');
+        Route::post('/areas/update/{id}', 'update')->name('area.update');
+        Route::post('/areas/delete/{id}', 'destroy')->name('area.delete');
+        Route::get('/areas/export', 'export')->name('area.export');
+        Route::get('/areas/pdf', 'pdf')->name('area.pdf');
+        Route::get('/areas/print', 'print')->name('area.print');
     });
     // halaman data client
     Route::controller(ClientController::class)->group(function () {

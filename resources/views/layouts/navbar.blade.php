@@ -31,6 +31,7 @@
                             aria-expanded="false" class="nav-link dropdown-toggle">Data</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li><a href="{{ url('/clients') }}" class="dropdown-item">Data Pelanggan</a></li>
+                            <li><a href="{{ url('/areas') }}" class="dropdown-item">Data Area</a></li>
                             <li><a href="{{ url('/invoices') }}" class="dropdown-item">Info Tagihan</a></li>
                         </ul>
                     </li>

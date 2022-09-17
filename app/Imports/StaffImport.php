@@ -2,9 +2,9 @@
 
 namespace App\Imports;
 
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\Data\Staff;
+use App\Models\Data\StaffCategory;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -27,32 +27,49 @@ class StaffImport implements ToCollection, WithHeadingRow, WithChunkReading, Wit
     public function collection(Collection $collection)
     {
         foreach ($collection as $row) {
-            DB::table('staff_categories')->upsert([
+            //     DB::table('staff_categories')->upsert([
+            //         'uuid' => $row['uuid'],
+            //         'kategori' => $row['kategori'],
+            //         'jabatan' => $row['jabatan'] ?? null,
+            //         'status' => $row['status_jabatan'] ?? null,
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //         ['uuid'],
+            //         ['kategori', 'jabatan', 'status', 'updated_at']);
+            // }
+            StaffCategory::updateOrCreate([
                 'uuid' => $row['uuid'],
+            ], [
                 'kategori' => $row['kategori'],
                 'jabatan' => $row['jabatan'] ?? null,
                 'status' => $row['status_jabatan'] ?? null,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-                ['uuid'],
-                ['kategori', 'jabatan', 'status', 'updated_at']);
+            ]);
         }
         foreach ($collection as $row) {
             if ($row['nama'] != null) {
-                DB::table('staff')->upsert([
-                    'uuid' => IdGenerator::generate(['table' => 'staff', 'field' => 'uuid', 'length' => 12, 'prefix' => 'STF-', 'reset_on_prefix_change' => true]),
+                // DB::table('staff')->upsert([
+                //     'uuid' => IdGenerator::generate(['table' => 'staff', 'field' => 'uuid', 'length' => 12, 'prefix' => 'STF-', 'reset_on_prefix_change' => true]),
+                //     'category_id' => $row['uuid'],
+                //     'nama' => $row['nama'],
+                //     'nip' => $row['nip'] ?? null,
+                //     'ruang' => $row['ruang'] ?? null,
+                //     'golongan' => $row['golongan'] ?? null,
+                //     'jenjang' => $row['jenjang'] ?? null,
+                //     'created_at' => now(),
+                //     'updated_at' => now(),
+                // ],
+                //     ['category_id'],
+                //     ['nama', 'nip', 'ruang', 'golongan', 'jenjang']);
+                Staff::updateOrCreate([
                     'category_id' => $row['uuid'],
+                ], [
                     'nama' => $row['nama'],
                     'nip' => $row['nip'] ?? null,
                     'ruang' => $row['ruang'] ?? null,
                     'golongan' => $row['golongan'] ?? null,
                     'jenjang' => $row['jenjang'] ?? null,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-                    ['uuid', 'category_id'],
-                    ['nama', 'nip', 'ruang', 'golongan', 'jenjang']);
+                ]);
             }
         }
     }

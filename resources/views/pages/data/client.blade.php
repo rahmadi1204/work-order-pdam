@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <h3>Data Pelanggan</h3>
+                    <h3>{{ $title }}</h3>
                 </div>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

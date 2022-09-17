@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('kode_area')->unique();
+            $table->string('kode_area');
             $table->string('nama_area');
             $table->string('kode_kelurahan')->nullable();
             $table->string('nama_kelurahan')->nullable();

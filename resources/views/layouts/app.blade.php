@@ -74,7 +74,13 @@
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
-
+            <div class="content-lert">
+                <div class="container">
+                    <div class="col-12">
+                        @include('pages.components.alert')
+                    </div>
+                </div>
+            </div>
             <!-- Main content -->
             @yield('content')
             <!-- /.content -->
