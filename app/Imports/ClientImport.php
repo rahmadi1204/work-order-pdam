@@ -27,20 +27,22 @@ class ClientImport implements ToCollection, WithHeadingRow, WithChunkReading, Wi
     public function collection(Collection $collection)
     {
         foreach ($collection as $row) {
+            $row['id_kelurahan'] = $row['id_kelurahan'] ?? 0;
             DB::table('clients')->upsert([
                 'uuid' => $row['uuid'] ?? IdGenerator::generate(['table' => 'clients', 'field' => 'uuid', 'length' => 12, 'prefix' => 'CLN-', 'reset_on_prefix_change' => true]),
-                'tgl_masuk' => $this->transformDate($row['tglmasuk']) ?? now(),
+                'tgl_masuk' => $this->transformDate($row['tgl_masuk']) ?? now(),
                 'nama' => $row['nama'] ?? null,
-                'no_sambungan' => $row['nosambungan'],
-                'id_pelanggan' => $row['idpelanggan'] ?? date('YmdHis'),
+                'no_sambungan' => $row['no_sambungan'],
+                'id_pelanggan' => '0' . substr($row['no_sambungan'], 0, 1) . '/' . substr($row['no_sambungan'], 1, 2) . '/' . substr($row['no_sambungan'], 3, 2) . '/' . substr($row['no_sambungan'], 5, 4),
                 'no_telpon' => $row['telp'] ?? null,
                 'no_hp' => $row['hp'] ?? null,
-                'no_urut' => $row['nourut'] ?? null,
+                'no_urut' => $row['no_urut'] ?? null,
                 'alamat' => $row['alamat'] ?? null,
-                'id_area' => $row['idwilayah'] ?? null,
-                'id_wilayah' => $row['idkelurahan'] ?? null,
-                'id_jalan' => $row['idjalan'] ?? null,
-                'is_active' => $row['aktif'] ?? null,
+                'id_kelurahan' => $row['id_kecamatan'] . '.' . $row['id_kelurahan'] ?? null,
+                'id_area' => 'AREA-' . $row['id_kecamatan'] . '.' . $row['id_wilayah'] . '.' . $row['id_jalan'] ?? null,
+                'id_wilayah' => $row['id_wilayah'] ?? null,
+                'id_jalan' => $row['id_kecamatan'] . '.' . $row['id_wilayah'] . '.' . $row['id_jalan'] ?? null,
+                'is_active' => $row['aktif'] ?? 0,
                 'latitude' => $row['LongCoordinate'] ?? null,
                 'longitude' => $row['LongCoordinate'] ?? null,
                 'created_at' => now(),

@@ -37,8 +37,8 @@
                                             <button type="submit" class="btn btn-success"><i
                                                     class="fa fa-search"></i></button>
                                         </div>
-                                        <input type="number" name="no_pelanggan" class="form-control float-right"
-                                            value="{{ app('request')->input('no_pelanggan') ?? '' }}"
+                                        <input type="number" name="no_sambungan" class="form-control float-right"
+                                            value="{{ app('request')->input('no_sambungan') ?? '' }}"
                                             placeholder="Cari No Pelanggan" id="search-no-pelanggan">
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                 </td>
                                 <td>
                                     <a>
-                                        {{ $item->name }}
+                                        {{ $item->nama }}
                                     </a>
                                     <br />
                                     <small>
@@ -145,7 +145,7 @@
                                     {{ $item->alamat }}
                                     <br />
                                     <small>
-                                        {{ $item->wilayah->name ?? '' }}
+                                        {{ $item->id_area . ' - ' . $item->id_kelurahan }}
                                     </small>
                                 </td>
                                 <td class="project-state">
@@ -156,11 +156,11 @@
                                     @endif
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
+                                    {{-- <a class="btn btn-primary btn-sm" href="#">
                                         <i class="fas fa-folder">
                                         </i>
                                         View
-                                    </a>
+                                    </a> --}}
                                     <a class="btn btn-info btn-sm" href="#">
                                         <i class="fas fa-pencil-alt">
                                         </i>

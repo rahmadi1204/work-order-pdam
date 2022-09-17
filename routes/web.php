@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Data\AreaController;
 use App\Http\Controllers\Data\ClientController;
-use App\Http\Controllers\Master\StaffController;
+use App\Http\Controllers\Data\StaffController;
 use App\Http\Controllers\Pages\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/areas', 'index')->name('area');
         Route::get('/areas/get', 'get')->name('area.get');
         Route::get('/areas/search', 'search')->name('area.search');
-        Route::get('/areas/kelurahan', 'kelurahan')->name('area.kelurahan');
+        Route::get('/areas/wilayah', 'wilayah')->name('area.wilayah');
         Route::get('/areas/create', 'create')->name('area.create');
         Route::post('/areas/store', 'store')->name('area.store');
         Route::get('/areas/edit/{id}', 'edit')->name('area.edit');
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/clients/store', 'store')->name('client.store');
         Route::get('/clients/edit/{id}', 'edit')->name('client.edit');
         Route::post('/clients/update/{id}', 'update')->name('client.update');
-        Route::get('/clients/delete/{id}', 'destroy')->name('client.delete');
+        Route::post('/clients/delete/{id}', 'destroy')->name('client.delete');
         Route::get('/clients/export', 'export')->name('client.export');
         Route::get('/clients/pdf', 'pdf')->name('client.pdf');
         Route::get('/clients/print', 'print')->name('client.print');
@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/staffs/store', 'store')->name('staff.store');
         Route::get('/staffs/edit/{id}', 'edit')->name('staff.edit');
         Route::post('/staffs/update/{id}', 'update')->name('staff.update');
-        Route::get('/staffs/delete/{id}', 'destroy')->name('staff.delete');
+        Route::post('/staffs/delete/{id}', 'destroy')->name('staff.delete');
         Route::get('/staffs/export', 'export')->name('staff.export');
         Route::get('/staffs/pdf', 'pdf')->name('staff.pdf');
         Route::get('/staffs/print', 'print')->name('staff.print');

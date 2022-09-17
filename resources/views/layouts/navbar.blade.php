@@ -17,24 +17,25 @@
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">Master</a>
-                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="{{ url('/staffs') }}" class="dropdown-item">Karyawan</a></li>
-                            <li><a href="{{ url('/work-order-type') }}" class="dropdown-item">Jenis Work Order</a></li>
-                            <li><a href="{{ url('/document-type') }}" class="dropdown-item">Jenis Dokumen</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">Data</a>
-                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="{{ url('/clients') }}" class="dropdown-item">Data Pelanggan</a></li>
-                            <li><a href="{{ url('/areas') }}" class="dropdown-item">Data Area</a></li>
-                            <li><a href="{{ url('/invoices') }}" class="dropdown-item">Info Tagihan</a></li>
-                        </ul>
-                    </li>
+                    @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin')
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle">Data</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="{{ url('/areas') }}" class="dropdown-item">Data Area</a></li>
+                                <li><a href="{{ url('/staffs') }}" class="dropdown-item">Data Karyawan</a></li>
+                                <li><a href="{{ url('/clients') }}" class="dropdown-item">Data Pelanggan</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle">Jenis</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="{{ url('/work-order-type') }}" class="dropdown-item">Jenis Work Order</a></li>
+                                <li><a href="{{ url('/document-type') }}" class="dropdown-item">Jenis Dokumen</a></li>
+                            </ul>
+                        </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" class="nav-link dropdown-toggle">Work Order</a>
@@ -44,15 +45,30 @@
                             <li><a href="{{ url('/realization') }}" class="dropdown-item">Realisasi</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
-                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="{{ url('report/work-order') }}" class="dropdown-item">Rekap Work Order</a></li>
-                            <li><a href="{{ url('report/spk') }}" class="dropdown-item">Rekap SPK</a></li>
-                            <li><a href="{{ url('report/staff-spk') }}" class="dropdown-item">SPK Tiap Petugas</a></li>
-                        </ul>
-                    </li>
+                    @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin')
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="{{ url('report/work-order') }}" class="dropdown-item">Rekap Work Order</a>
+                                </li>
+                                <li><a href="{{ url('report/spk') }}" class="dropdown-item">Rekap SPK</a></li>
+                                <li><a href="{{ url('report/staff-spk') }}" class="dropdown-item">SPK Tiap Petugas</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if (auth()->user()->role == 'super admin')
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle">Administrator</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="{{ url('report/work-order') }}" class="dropdown-item">Rekap Work Order</a>
+                                </li>
+                                <li><a href="{{ url('report/spk') }}" class="dropdown-item">Rekap SPK</a></li>
+                                <li><a href="{{ url('report/staff-spk') }}" class="dropdown-item">SPK Tiap Petugas</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <!-- Right navbar links -->

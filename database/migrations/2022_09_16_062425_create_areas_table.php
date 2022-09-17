@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('nama_area');
             $table->string('kode_kelurahan')->nullable();
             $table->string('nama_kelurahan')->nullable();
-            $table->string('kode_jalan')->nullable();
+            $table->string('kode_wilayah')->nullable();
+            $table->string('nama_wilayah')->nullable();
+            $table->string('kode_jalan')->unique();
             $table->string('nama_jalan')->nullable();
             $table->string('deskripsi')->nullable();
             $table->timestamps();

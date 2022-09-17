@@ -83,10 +83,10 @@
                                 Kode Area
                             </th>
                             <th style="width: 20%">
-                                Nama Wilayah
+                                Nama Kecamatan
                             </th>
                             <th style="width: 20%">
-                                Nama Kelurahan
+                                Kode Wilayah
                             </th>
                             <th style="width: 20%">
                                 Nama Jalan
@@ -123,11 +123,11 @@
                                     </small>
                                 </td>
                                 <td>
-                                    {{ $item->nama_kelurahan }}
+                                    {{ $item->kode_wilayah }}
                                     <br />
-                                    <small>
+                                    {{-- <small>
                                         {{ $item->kode_kelurahan }}
-                                    </small>
+                                    </small> --}}
                                 </td>
                                 <td>
                                     {{ $item->nama_jalan }}

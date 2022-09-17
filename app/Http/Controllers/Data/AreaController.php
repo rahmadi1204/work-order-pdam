@@ -27,7 +27,7 @@ class AreaController extends Controller
         // cari berdasarkan nama
         if ($request->has('name')) {
             $areas->where('nama_area', 'like', '%' . $request->name . '%')
-                ->orWhere('nama_kelurahan', 'like', '%' . $request->name . '%')
+            // ->orWhere('nama_kelurahan', 'like', '%' . $request->name . '%')
                 ->orWhere('nama_jalan', 'like', '%' . $request->name . '%');
         }
         // cari berdasarkan kode jabatan
@@ -40,18 +40,18 @@ class AreaController extends Controller
             'areas',
         ]));
     }
-    public function kelurahan(Request $request)
+    public function wilayah(Request $request)
     {
-        $kelurahan = Area::select('kode_kelurahan', 'nama_kelurahan')
+        $kode_wilayah = Area::select('kode_wilayah')
             ->where('kode_area', $request->kode_area)
-            ->groupBy('kode_kelurahan', 'nama_kelurahan')
+            ->groupBy('kode_wilayah')
             ->get();
-        return response()->json($kelurahan);
+        return response()->json($kode_wilayah);
     }
     public function get(Request $request)
     {
         try {
-            $data = Area::where('kode_kelurahan', $request->kelurahan)->get();
+            $data = Area::where('kode_wilayah', $request->kode_wilayah)->get();
             return response()->json([
                 'status' => 'success',
                 'data' => $data,
@@ -76,15 +76,14 @@ class AreaController extends Controller
     {
         $validated = $request->validate([
             'kode_area' => 'required',
-            'kode_kelurahan' => 'required',
-            'nama_kelurahan' => 'required',
-            'kode_jalan' => 'required',
+            'kode_wilayah' => 'required',
+            'kode_jalan' => 'required | unique:areas',
             'nama_jalan' => 'required',
         ], [
             'kode_area.required' => 'Kode Area tidak boleh kosong',
-            'kode_kelurahan.required' => 'Kode Kelurahan tidak boleh kosong',
-            'nama_kelurahan.required' => 'Nama Kelurahan tidak boleh kosong',
+            'kode_wilayah.required' => 'Kode Wilayah tidak boleh kosong',
             'kode_jalan.required' => 'Kode Jalan tidak boleh kosong',
+            'kode_jalan.unique' => 'Kode Jalan sudah ada',
             'nama_jalan.required' => 'Nama Jalan tidak boleh kosong',
         ]);
         DB::beginTransaction();
@@ -93,8 +92,7 @@ class AreaController extends Controller
                 'uuid' => 'AREA-' . $request->kode_jalan,
                 'kode_area' => $request->kode_area,
                 'nama_area' => $request->nama_area,
-                'kode_kelurahan' => $request->kode_kelurahan,
-                'nama_kelurahan' => $request->nama_kelurahan,
+                'kode_wilayah' => $request->kode_wilayah,
                 'kode_jalan' => $request->kode_jalan,
                 'nama_jalan' => $request->nama_jalan,
             ]);
@@ -121,15 +119,13 @@ class AreaController extends Controller
         $validate = $request->validate([
             'kode_area' => 'required',
             'nama_area' => 'required',
-            'kode_kelurahan' => 'required',
-            'nama_kelurahan' => 'required',
+            'kode_wilayah' => 'required',
             'kode_jalan' => 'required | unique:areas,kode_jalan,' . $request->uuid . ',uuid',
             'nama_jalan' => 'required',
         ], [
             'kode_area.required' => 'Kode Area tidak boleh kosong',
             'nama_area.required' => 'Nama Area tidak boleh kosong',
-            'kode_kelurahan.required' => 'Kode Kelurahan tidak boleh kosong',
-            'nama_kelurahan.required' => 'Nama Kelurahan tidak boleh kosong',
+            'kode_wilayah.required' => 'Kode Wilayah tidak boleh kosong',
             'kode_jalan.required' => 'Kode Jalan tidak boleh kosong',
             'kode_jalan.unique' => 'Kode Jalan sudah digunakan',
             'nama_jalan.required' => 'Nama Jalan tidak boleh kosong',
@@ -139,8 +135,7 @@ class AreaController extends Controller
             $update = Area::where('uuid', $request->uuid)->update([
                 'kode_area' => $request->kode_area,
                 'nama_area' => $request->nama_area,
-                'kode_kelurahan' => $request->kode_kelurahan,
-                'nama_kelurahan' => $request->nama_kelurahan,
+                'kode_wilayah' => $request->kode_wilayah,
                 'kode_jalan' => $request->kode_jalan,
                 'nama_jalan' => $request->nama_jalan,
             ]);

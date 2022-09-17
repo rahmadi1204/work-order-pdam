@@ -7,8 +7,8 @@
                     <div class="col-md-6">
                         <h5>Aturan Kode</h5>
 
-                        <p>Kode wilayah = <b> contoh (1)</b> <br>
-                            Kode kelurahan = Kode wilayah.angka <b> contoh (1.2)</b> <br>
+                        <p>Kode area = <b> contoh (1)</b> <br>
+                            Kode wilayah = Kode wilayah.angka <b> contoh (1.2)</b> <br>
                             Kode jalan = Kode kelurahan.angka <b> contoh (1.2.2)</b><br>
                         </p>
                     </div>
@@ -20,7 +20,7 @@
                 @csrf
                 <input type="hidden" name="uuid" value="{{ $data->uuid ?? '' }}">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Wilayah</h3>
@@ -34,22 +34,25 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="data_area">Pilih Wilayah</label>
+                                    <label for="data_area">Pilih Area</label>
                                     <select name="data_area" id="data_area" class="form-control">
-                                        <option value="">Pilih Wilayah</option>
+                                        <option value="">Pilih Area</option>
                                         @foreach ($areas as $item)
-                                            <option value="{{ $item->kode_area }}" data-name="{{ $item->nama_area }}">
+                                            <option value="{{ $item->kode_area }}"
+                                                {{ old('data_area') == $item->kode_area ? 'selected' : '' }}
+                                                {{ $data->kode_area == $item->kode_area ? 'selected' : '' }}
+                                                data-name="{{ $item->nama_area }}">
                                                 {{ $item->nama_area }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="kode_area">Kode Wilayah</label>
+                                    <label for="kode_area">Kode Area</label>
                                     <input type="text"name="kode_area" id="kode_area" class="form-control"
                                         value="{{ $data->kode_area ?? old('kode_area') }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama_area">Nama Wilayah</label>
+                                    <label for="nama_area">Nama Area</label>
                                     <input type="text" name="nama_area" id="nama_area" class="form-control"
                                         value="{{ $data->nama_area ?? old('nama_area') }}" required>
                                 </div>
@@ -57,43 +60,7 @@
                             <!-- /.card-body -->
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card card-warning">
-                            <div class="card-header">
-                                <h3 class="card-title">Kelurahan</h3>
-
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="data_kelurahan">Pilih Kelurahan</label>
-                                    <select name="data_kelurahan" id="data_kelurahan" class="form-control">
-
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="kode_kelurahan">Kode Kelurahan</label>
-                                    <input type="text" name="kode_kelurahan" id="kode_kelurahan"
-                                        value="{{ $data->kode_kelurahan ?? old('kode_kelurahan') }}" class="form-control"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nama_kelurahan">Nama Kelurahan</label>
-                                    <input type="text" name="nama_kelurahan" id="nama_kelurahan"
-                                        value="{{ $data->nama_kelurahan ?? old('nama_kelurahan') }}" class="form-control"
-                                        required>
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card card-danger">
                             <div class="card-header">
                                 <h3 class="card-title">Jalan</h3>
@@ -106,14 +73,18 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                {{-- <div class="form-group">
-                                <label for="inputEstimatedBudget">Pilih Kelurahan</label>
-                                <select name="kode_area" id="kode_area_kelurahan" class="form-control">
-                                    @foreach ($districts as $item)
-                                        <option value="{{ $item->kode_kelurahan }}">{{ $item->nama_kelurahan }}</option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
+                                <div class="form-group">
+                                    <label for="inputEstimatedBudget">Pilih Wilayah</label>
+                                    <select name="kode_area_wilayah" id="kode_area_wilayah" class="form-control">
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kode_wilayah">Kode Wilayah</label>
+                                    <input type="text" name="kode_wilayah" id="kode_wilayah"
+                                        value="{{ $data->kode_wilayah ?? old('kode_wilayah') }}" class="form-control"
+                                        required>
+                                </div>
                                 <div class="form-group">
                                     <label for="kode_jalan">Kode Jalan</label>
                                     <input type="text" name="kode_jalan" id="kode_jalan"
@@ -151,10 +122,9 @@
                                 <table class="table table-bordered table-striped" id="table-wilayah" style="width: 100%">
                                     <thead class=d">
                                         <tr>
+                                            <th>Kode Kecamatan</th>
+                                            <th>Nama Kecamatan</th>
                                             <th>Kode Wilayah</th>
-                                            <th>Nama Wilayah</th>
-                                            <th>Kode Kelurahan</th>
-                                            <th>Nama Kelurahan</th>
                                             <th>Kode Jalan</th>
                                             <th>Nama Jalan</th>
                                         </tr>
@@ -175,59 +145,54 @@
 @endsection
 @section('scripts')
     <script>
+        let kodeArea = $('#kode_area').val();
+        if (kodeArea.length > 0) {
+            getWilayah(kodeArea);
+        }
+        let KodeWilayah = $('#kode_wilayah').val();
+        if (KodeWilayah.length > 0) {
+            getJalan(KodeWilayah);
+        }
         $('#data_area').change(function(e) {
             e.preventDefault();
             let kode = $(this).val();
             let name = $(this).find(':selected').data('name');
-            console.log(kode);
-            console.log(name);
             $('#nama_area').val(name);
             $('#kode_area').val(kode);
-            $('#nama_kelurahan').val('');
-            $('#kode_kelurahan').val('');
-            getKelurahan(kode);
+            getWilayah(kode);
         });
 
-        function getKelurahan() {
-            let kode = $('#data_area').val();
+        function getWilayah(kode) {
             $.ajax({
-                url: "{{ route('area.kelurahan') }}",
+                url: "{{ route('area.wilayah') }}",
                 type: "GET",
                 data: {
                     kode_area: kode
                 },
                 success: function(data) {
                     console.log(data);
-                    $('#data_kelurahan').empty();
-                    $('#data_kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                    $('#kode_area_wilayah').empty();
+                    $('#kode_area_wilayah').append('<option value="">Pilih Wilayah</option>');
                     $.each(data, function(key, value) {
-                        $('#data_kelurahan').append(
-                            `<option value="${value.kode_kelurahan}" data-name="${value.nama_kelurahan}">${value.nama_kelurahan}</option>`
+                        $('#kode_area_wilayah').append(
+                            `<option value="${value.kode_wilayah}" >${value.kode_wilayah}</option>`
                         );
                     });
                 },
                 error: function(err) {
                     console.log(err);
-                    $('#data_kelurahan').empty();
-                    $('#data_kelurahan').append('<option value="">Server Error</option>');
+                    $('#kode_area_wilayah').empty();
+                    $('#kode_area_wilayah').append('<option value="">Server Error</option>');
                 }
             });
         }
 
-        $('#data_kelurahan').change(function(e) {
-            e.preventDefault();
-            let kode = $(this).val();
-            let name = $(this).find(':selected').data('name');
-            console.log(kode);
-            console.log(name);
-            $('#nama_kelurahan').val(name);
-            $('#kode_kelurahan').val(kode);
-            $('#kode_jalan').val(kode + '.');
+        function getJalan(kode) {
             $.ajax({
                 type: "get",
                 url: "{{ route('area.get') }}",
                 data: {
-                    kelurahan: kode
+                    kode_wilayah: kode
                 },
                 success: function(response) {
                     if (response.status == 'success') {
@@ -237,8 +202,7 @@
                                 <tr>
                                     <td>${valueOfElement.kode_area}</td>
                                     <td>${valueOfElement.nama_area}</td>
-                                    <td>${valueOfElement.kode_kelurahan}</td>
-                                    <td>${valueOfElement.nama_kelurahan}</td>
+                                    <td>${valueOfElement.kode_wilayah}</td>
                                     <td>${valueOfElement.kode_jalan}</td>
                                     <td>${valueOfElement.nama_jalan}</td>
                                 </tr>
@@ -248,7 +212,7 @@
                         $('.data-jalan').empty();
                         $('.data-jalan').append(`
                             <tr>
-                                <td colspan="6" class="text-center">Data Tidak Ditemukan</td>
+                                <td colspan="5" class="text-center">Data Tidak Ditemukan</td>
                             </tr>
                         `);
                     }
@@ -258,11 +222,19 @@
                     $('.data-jalan').empty();
                     $('.data-jalan').append(`
                             <tr>
-                                <td colspan="6" class="text-center">Server Error</td>
+                                <td colspan="5" class="text-center">Server Error</td>
                             </tr>
                         `);
                 }
             });
+        }
+        $('#kode_area_wilayah').change(function(e) {
+            e.preventDefault();
+            let kode = $(this).val();
+            $('#kode_jalan').val(kode + '.');
+            $('#kode_wilayah').val(kode);
+            $('#nama_jalan').val('');
+            getJalan(kode);
         });
 
         $('#table-wilayah').DataTable({

@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('staff_categories', function (Blueprint $table) {
+        Schema::create('type_work_orders', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('kategori');
-            $table->string('jabatan');
-            $table->string('status')->nullable();
+            $table->string('pts')->nullable();
+            $table->string('jenis_work_order')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->bigInteger('jumlah_pengorder')->default(0);
+            $table->string('responder')->nullable();
+            $table->string('nosal')->nullable();
+            $table->string('bon')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff_categories');
+        Schema::dropIfExists('type_work_orders');
     }
 };

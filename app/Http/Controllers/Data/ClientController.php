@@ -24,7 +24,7 @@ class ClientController extends Controller
         $title = 'Data Pelanggan';
         $clients = Client::query();
         if ($request->has('name')) {
-            $clients->where('name', 'like', '%' . $request->name . '%');
+            $clients->where('nama', 'like', '%' . $request->name . '%');
         }
         if ($request->has('no_sambungan')) {
             $clients->where('no_sambungan', 'like', '%' . $request->no_sambungan . '%');

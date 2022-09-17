@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('no_telpon')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('no_urut')->nullable();
-            $table->text('alamat');
+            $table->text('alamat')->nullable();
+            $table->string('id_kelurahan')->nullable();
             $table->string('id_area')->nullable();
             $table->string('id_wilayah')->nullable();
             $table->string('id_jalan')->nullable();

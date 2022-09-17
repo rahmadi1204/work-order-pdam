@@ -21,13 +21,13 @@ class ImportController extends Controller
     {
         try {
             $file = $request->file('file');
-            $path = 'files/excel';
-            $fileData = $this->uploadStorage($file, $path);
-            $filePath = $fileData['path'] . '/' . $fileData['name'];
-            $import = Excel::import(new ClientImport, $filePath);
+            // $path = 'files/excel';
+            // $fileData = $this->uploadStorage($file, $path);
+            // $filePath = $fileData['path'] . '/' . $fileData['name'];
+            $import = Excel::import(new ClientImport, $file);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Import Client ' . $fileData['name'] . ' Success',
+                'message' => 'Import Client ' . $file->getClientOriginalName() . ' Success',
             ]);
         } catch (\Throwable$th) {
             return response()->json([
@@ -41,13 +41,13 @@ class ImportController extends Controller
     {
         try {
             $file = $request->file('file');
-            $path = 'files/excel';
-            $fileData = $this->uploadStorage($file, $path);
-            $filePath = $fileData['path'] . '/' . $fileData['name'];
-            $import = Excel::import(new StaffImport, $filePath);
+            // $path = 'files/excel';
+            // $fileData = $this->uploadStorage($file, $path);
+            // $filePath = $fileData['path'] . '/' . $fileData['name'];
+            $import = Excel::import(new StaffImport, $file);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Import Staff ' . $fileData['name'] . ' Success',
+                'message' => 'Import Staff ' . $file->getClientOriginalName() . ' Success',
             ]);
         } catch (\Throwable$th) {
             return response()->json([
@@ -61,13 +61,13 @@ class ImportController extends Controller
     {
         try {
             $file = $request->file('file');
-            $path = 'files/excel';
-            $fileData = $this->uploadStorage($file, $path);
-            $filePath = $fileData['path'] . '/' . $fileData['name'];
-            $import = Excel::import(new WilayahImport, $filePath);
+            // $path = 'files/excel';
+            // $fileData = $this->uploadStorage($file, $path);
+            // $filePath = $fileData['path'] . '/' . $fileData['name'];
+            $import = Excel::import(new WilayahImport, $file);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Import Wilayah ' . $fileData['name'] . ' Success',
+                'message' => 'Import Wilayah ' . $file->getClientOriginalName() . ' Success',
             ]);
         } catch (\Throwable$th) {
             return response()->json([

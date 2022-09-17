@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('category_id')->nullable();
             $table->string('nama');
+            $table->string('image')->nullable();
+            $table->string('kode_jabatan')->unique();
+            $table->string('kategori_jabatan')->nullable();
+            $table->string('jabatan')->nullable();
             $table->string('nip')->nullable();
             $table->string('ruang')->nullable();
             $table->string('golongan')->nullable();
             $table->string('jenjang')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

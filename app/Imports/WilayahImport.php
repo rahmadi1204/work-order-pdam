@@ -35,11 +35,12 @@ class WilayahImport implements ToCollection, WithHeadingRow, WithChunkReading, W
             ], [
                 'kode_area' => $row['kode_area'],
                 'nama_area' => $row['nama_area'],
-                'kode_kelurahan' => $row['kode_kelurahan'] ?? null,
-                'nama_kelurahan' => $row['nama_kelurahan'] ?? null,
+                'kode_wilayah' => $row['kode_wilayah'],
+                // 'kode_kelurahan' => $row['kode_kelurahan'] ?? null,
+                // 'nama_kelurahan' => $row['nama_kelurahan'] ?? null,
                 'kode_jalan' => $row['kode_jalan'],
                 'nama_jalan' => $row['nama_jalan'],
-                'deskripsi' => $row['deskripsi'] ?? '',
+                'deskripsi' => $row['deskripsi'] ?? 'KOTA MADIUN',
             ]);
         }
     }

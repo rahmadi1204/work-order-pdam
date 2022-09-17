@@ -37,8 +37,8 @@
                                             <button type="submit" class="btn btn-success"><i
                                                     class="fa fa-search"></i></button>
                                         </div>
-                                        <input type="text" name="category_id" class="form-control float-right"
-                                            value="{{ app('request')->input('category_id') ?? '' }}"
+                                        <input type="text" name="kode_jabatan" class="form-control float-right"
+                                            value="{{ app('request')->input('kode_jabatan') ?? '' }}"
                                             placeholder="Cari No jabatan" id="search-kode-jabatan">
                                     </div>
                                 </div>
@@ -110,6 +110,9 @@
                             <th>
                                 Jabatan
                             </th>
+                            <th>
+                                Ruangan
+                            </th>
                             <th style="width: 8%" class="text-center">
                                 Golongan
                             </th>
@@ -125,7 +128,7 @@
                                 </td>
                                 <td>
                                     <a>
-                                        {{ $item->category_id }}
+                                        {{ $item->kode_jabatan }}
                                     </a>
                                     <br />
                                     <small>
@@ -141,32 +144,32 @@
                                         {{ $item->nip }}
                                     </small>
                                 </td>
-                                <td class="project_progress">
-                                    {{ $item->category->jabatan }}
+                                <td>
+                                    {{ $item->jabatan }}
                                     <br />
                                     <small>
-                                        {{ $item->golongan ?? '' }}
+                                        {{ $item->kategori_jabatan }}
                                     </small>
                                 </td>
-                                <td class="project-state">
-                                    {{-- @if ($item->is_active == 1)
-                                        <span class="badge badge-success">Aktif</span>
-                                    @else
-                                        <span class="badge badge-danger">Tidak Aktif</span>
-                                    @endif --}}
+                                <td>
+                                    {{ $item->ruang }}
+                                </td>
+                                <td>
+                                    {{ $item->golongan }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
+                                    {{-- <a class="btn btn-primary btn-sm" href="#">
                                         <i class="fas fa-folder">
                                         </i>
                                         View
-                                    </a>
-                                    <a class="btn btn-info btn-sm" href="#">
+                                    </a> --}}
+                                    <a class="btn btn-info btn-sm" href="{{ route('staff.edit', $item->uuid) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
+                                    <a class="btn btn-danger btn-sm" href="#"
+                                        onclick="deleteConfirm('{{ $item->id }}', '{{ $item->nama }}')">
                                         <i class="fas fa-trash">
                                         </i>
                                         Delete
@@ -175,7 +178,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">
+                                <td colspan="7" class="text-center">
                                     Data Kosong
                                 </td>
                             </tr>
@@ -218,5 +221,57 @@
                 window.location = url + "?status=" + filter;
             }
         });
+    </script>
+    <script>
+        $("#checkbox").click(function(e) {
+            if ($(this).is(":checked")) {
+                $("input[name='checkbox[]']").each(function() {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $("input[name='checkbox[]']").each(function() {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
+
+        function deleteConfirm(id, name) {
+            console.log(id, name);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Menghapus data " + name + " ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('staffs') }}" + '/delete/' + id,
+                        type: "POST",
+                        data: {
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            Swal.fire(
+                                'Terhapus!',
+                                'Data berhasil dihapus.',
+                                'success'
+                            )
+                            location.reload();
+                        },
+                        error: function(data) {
+                            console.log(data);
+                            Swal.fire(
+                                'Gagal!',
+                                'Data gagal dihapus.',
+                                'error'
+                            )
+                        }
+                    });
+                }
+            })
+        }
     </script>
 @endsection
