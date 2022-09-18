@@ -32,8 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     // halaman data client
     Route::controller(ClientController::class)->group(function () {
         Route::get('/clients', 'index')->name('client'); //view halaman
-        Route::get('/clients/search', 'search')->name('client.search'); //cari data
-        Route::get('/clients/filter', 'filter')->name('client.filter'); //filter data
+        Route::get('/clients/get', 'get')->name('client.get'); //ambil data
         Route::get('/clients/create', 'create')->name('client.create'); //view form tambah
         Route::get('/clients/check', 'check')->name('client.check'); //check id pelanggan
         Route::post('/clients/store', 'store')->name('client.store'); //simpan data

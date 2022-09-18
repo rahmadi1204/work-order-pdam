@@ -59,11 +59,12 @@
                                                 <label for="kategori" class="col-sm-2 col-form-label">
                                                     Area<code>*</code></label>
                                                 <div class="col-sm-10">
-                                                    <select name="area" id="area" class="form-control select2">
+                                                    <select name="id_area" id="area" class="form-control select2">
                                                         <option value="">-- Pilih Area --</option>
                                                         @foreach ($areas as $item)
                                                             <option value="{{ $item->uuid }}"
-                                                                {{ isset($data) && $data->area_id == $item->uuid ? 'selected' : '' }}
+                                                                {{ isset($data) && $data->id_area == $item->uuid ? 'selected' : '' }}
+                                                                {{ old('id_area') == $item->uuid ? 'selected' : '' }}
                                                                 data-id="{{ str_replace(['AREA-', '.'], '', $item->uuid) }}">
                                                                 {{ $item->nama_jalan . ' KEC. ' . $item->nama_area . ' | Kode : ' . str_replace(['AREA-'], '', $item->uuid) }}
                                                             </option>
@@ -72,11 +73,29 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="tgl_masuk" class="col-sm-2 col-form-label">Tanggal
+                                                    Masuk<code>*</code></label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group date" id="datepicker"
+                                                        data-target-input="nearest">
+                                                        <input type="text" name="tgl_masuk"
+                                                            class="form-control datetimepicker-input"
+                                                            value="{{ isset($data) ? $data->tgl_masuk : old('tgl_masuk') }}"
+                                                            data-target="#datepicker" required>
+                                                        <div class="input-group-append" data-target="#datepicker"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="name"
                                                     class="col-sm-2 col-form-label">Nama<code>*</code></label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="nama" class="form-control" id="name"
-                                                        value="{{ $data->nama ?? old('nama') }}" placeholder="Name"
+                                                    <input type="text" name="nama" class="form-control" id="nama"
+                                                        value="{{ $data->nama ?? old('nama') }}" placeholder="Nama"
                                                         required>
                                                 </div>
                                             </div>
@@ -115,7 +134,7 @@
                                                     <input type="text" name="no_telpon" class="form-control telp"
                                                         data-mask="(000) 000-000-000" id="no_telpon"
                                                         value="{{ $data->no_telpon ?? old('no_telpon') }}"
-                                                        placeholder="Nomor Telepon" required>
+                                                        placeholder="Nomor Telepon">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -123,8 +142,8 @@
                                                 <div class="col-sm-10">
                                                     <input type="text" name="no_hp" class="form-control hp"
                                                         data-mask="0000-0000-00000" id="no_hp"
-                                                        value="{{ $data->no_hp ?? old('no_hp') }}" placeholder="Nomor HP"
-                                                        required>
+                                                        value="{{ $data->no_hp ?? old('no_hp') }}"
+                                                        placeholder="Nomor HP">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -142,14 +161,23 @@
                                                 <div class="col-sm-10">
                                                     <div class="input-group input-group-sm">
                                                         <input type="text" name="latitude" class="form-control"
-                                                            id="latitude">
+                                                            value="{{ $data->latitude ?? old('latitude') }}"
+                                                            placeholder="Latitude" id="latitude">
                                                         <input type="text" name="longitude" class="form-control"
-                                                            id="longitude">
+                                                            value="{{ $data->longitude ?? old('longitude') }}"
+                                                            placeholder="Longitude" id="longitude">
                                                         <span class="input-group-append">
                                                             <button type="button" class="btn btn-info btn-flat"
                                                                 onclick="getKoordinate()">Get!</button>
                                                         </span>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="status" class="col-sm-2 col-form-label">Status</label>
+                                                <div class="col-10">
+                                                    <input type="checkbox" name="is_active" checked data-bootstrap-switch
+                                                        data-off-color="danger" data-on-color="success">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -186,6 +214,19 @@
             }
             reader.readAsDataURL(file);
         });
+        $("input[data-bootstrap-switch]").each(function() {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        })
+        $('#datepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            icons: {
+                time: "far fa-clock",
+                date: "far fa-calendar",
+                up: "fas fa-arrow-up",
+                down: "fas fa-arrow-down"
+            }
+
+        })
     </script>
     <script>
         function getKoordinate() {
@@ -204,7 +245,7 @@
         }
     </script>
     {{-- create id pelanggan otomatis --}}
-    {{-- <script>
+    <script>
         $('#area').change(function(e) {
             e.preventDefault();
             let id = $('#area option:selected').data('id');
@@ -229,5 +270,5 @@
             });
 
         }
-    </script> --}}
+    </script>
 @endsection

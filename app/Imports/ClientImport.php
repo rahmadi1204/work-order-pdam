@@ -28,6 +28,18 @@ class ClientImport implements ToCollection, WithHeadingRow, WithChunkReading, Wi
     {
         foreach ($collection as $row) {
             $row['id_kelurahan'] = $row['id_kelurahan'] ?? 0;
+            if ($row['id_kecamatan'] < 10) {
+                $row['id_kecamatan'] = '0' . $row['id_kecamatan'];
+            }
+            if ($row['id_kelurahan'] < 10) {
+                $row['id_kelurahan'] = '0' . $row['id_kelurahan'];
+            }
+            if ($row['id_wilayah'] < 10) {
+                $row['id_wilayah'] = '0' . $row['id_wilayah'];
+            }
+            if ($row['id_jalan'] < 10) {
+                $row['id_jalan'] = '0' . $row['id_jalan'];
+            }
             DB::table('clients')->upsert([
                 'uuid' => $row['uuid'] ?? IdGenerator::generate(['table' => 'clients', 'field' => 'uuid', 'length' => 12, 'prefix' => 'CLN-', 'reset_on_prefix_change' => true]),
                 'tgl_masuk' => $this->transformDate($row['tgl_masuk']) ?? now(),
@@ -38,9 +50,10 @@ class ClientImport implements ToCollection, WithHeadingRow, WithChunkReading, Wi
                 'no_hp' => $row['hp'] ?? null,
                 'no_urut' => $row['no_urut'] ?? null,
                 'alamat' => $row['alamat'] ?? null,
-                'id_kelurahan' => $row['id_kecamatan'] . '.' . $row['id_kelurahan'] ?? null,
                 'id_area' => 'AREA-' . $row['id_kecamatan'] . '.' . $row['id_wilayah'] . '.' . $row['id_jalan'] ?? null,
-                'id_wilayah' => $row['id_wilayah'] ?? null,
+                'id_kecamatan' => $row['id_kecamatan'] ?? null,
+                'id_kelurahan' => $row['id_kecamatan'] . '.' . $row['id_kelurahan'] ?? null,
+                'id_wilayah' => $row['id_kecamatan'] . '.' . $row['id_wilayah'] ?? null,
                 'id_jalan' => $row['id_kecamatan'] . '.' . $row['id_wilayah'] . '.' . $row['id_jalan'] ?? null,
                 'is_active' => $row['aktif'] ?? 0,
                 'latitude' => $row['LongCoordinate'] ?? null,
