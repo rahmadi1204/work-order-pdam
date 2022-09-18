@@ -2,6 +2,10 @@
 @section('content')
     <section class="content">
         <div class="container-fluid">
+            <div class="alert alert-success alert-dismissible" role="alert" id="alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <b class="message"></b>
+            </div>
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-6">
@@ -105,6 +109,7 @@
         }
     </script>
     <script>
+        $('#alert-success').hide();
         $('.import-client').click(function(e) {
             e.preventDefault();
             let form = $('#form-import-excel-client');
@@ -119,14 +124,8 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status == 'success') {
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        })
+                        $('#alert-success').show();
+                        $('.message').text(response.message);
                     } else {
                         Toast.fire({
                             icon: 'error',
@@ -158,14 +157,8 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status == 'success') {
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        })
+                        $('#alert-success').show();
+                        $('.message').text(response.message);
                     } else {
                         Toast.fire({
                             icon: 'error',
@@ -197,14 +190,8 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status == 'success') {
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        })
+                        $('#alert-success').show();
+                        $('.message').text(response.message);
                     } else {
                         Toast.fire({
                             icon: 'error',

@@ -5,14 +5,14 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-primary">
                         <div class="inner">
                             <h3>150</h3>
 
-                            <p>Permintaan Baru</p>
+                            <p>Permintaan Baru<span><sub class="text-mute">fake data</sub></span></p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-bag"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="inner">
                             <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                            <p>Selesai Dikerjakan</p>
+                            <p>Selesai Dikerjakan<span><sub class="text-mute">fake data</sub></span></p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -35,7 +35,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-danger">
                         <div class="inner">
                             <h3>{{ number_format($countClients) }}</h3>
 
@@ -51,14 +51,14 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ number_format($countStaffs) }}</h3>
 
                             <p>Karyawan</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="ion ion-person"></i>
                         </div>
                         <a href="{{ route('staff') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
@@ -71,7 +71,7 @@
                     <!-- AREA CHART -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Area Chart</h3>
+                            <h3 class="card-title">Grafik Work Order<span><sub class="text-mute">fake data</sub></span></h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -84,7 +84,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <canvas id="areaChart"
+                                <canvas id="stackedBarChart"
                                     style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                             </div>
                         </div>
@@ -125,76 +125,67 @@
 @section('scripts')
     <script>
         $(function() {
-            /* ChartJS
-             * -------
-             * Here we will create a few charts using ChartJS
-             */
-
-            //--------------
-            //- AREA CHART -
-            //--------------
-
-            // Get context with jQuery - using jQuery's .get() method.
-            var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-
-            var areaChartData = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            //---------------------
+            //- STACKED BAR CHART -
+            //---------------------
+            var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
+            var stackedBarChartData = {
+                labels: [
+                    @foreach ($days as $item)
+                        '{{ $item }}',
+                    @endforeach
+                ],
                 datasets: [{
-                        label: 'Digital Goods',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
+                        label: 'Belum Dikerjakan',
+                        backgroundColor: '#f39c12',
+                        data: [
+                            @foreach ($woBelum as $item)
+                                {{ $item }},
+                            @endforeach
+                        ]
+                    }, {
+                        label: 'Sedang Dikerjakan',
+                        backgroundColor: '#3c8dbc',
+                        data: [
+                            @foreach ($woProses as $item)
+                                {{ $item }},
+                            @endforeach
+                        ]
                     },
                     {
-                        label: 'Electronics',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
+                        label: 'Selesai Dikerjakan',
+                        backgroundColor: '#00a65a',
+                        data: [
+                            @foreach ($woSelesai as $item)
+                                {{ $item }},
+                            @endforeach
+                        ]
+                    }
                 ]
             }
 
-            var areaChartOptions = {
-                maintainAspectRatio: false,
+            var stackedBarChartOptions = {
                 responsive: true,
-                legend: {
-                    display: false
-                },
+                maintainAspectRatio: false,
                 scales: {
                     xAxes: [{
-                        gridLines: {
-                            display: false,
-                        }
+                        stacked: true,
                     }],
                     yAxes: [{
-                        gridLines: {
-                            display: false,
-                        }
+                        stacked: true
                     }]
                 }
             }
 
-            // This will get the first returned node in the jQuery collection.
-            new Chart(areaChartCanvas, {
-                type: 'line',
-                data: areaChartData,
-                options: areaChartOptions
+            new Chart(stackedBarChartCanvas, {
+                type: 'bar',
+                data: stackedBarChartData,
+                options: stackedBarChartOptions
             })
-
-            //-------------
-            //- DONUT CHART -
-            //-------------
-            // Get context with jQuery - using jQuery's .get() method.
+        });
+    </script>
+    <script>
+        $(function() {
             var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
             var donutData = {
                 labels: [

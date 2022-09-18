@@ -62,7 +62,8 @@ class ClientImport implements ToCollection, WithHeadingRow, WithChunkReading, Wi
                 'updated_at' => now(),
             ],
                 ['no_sambungan'],
-                ['tgl_masuk', 'id_pelanggan', 'no_telpon', 'no_hp', 'no_urut', 'alamat', 'id_wilayah', 'is_active', 'latitude', 'longitude']);
+                ['tgl_masuk', 'nama', 'no_telpon', 'no_hp', 'no_urut', 'alamat', 'id_area', 'id_kecamatan', 'id_kelurahan', 'id_wilayah', 'id_jalan', 'is_active', 'latitude', 'longitude', 'updated_at']
+            );
         }
     }
     public function batchSize(): int
