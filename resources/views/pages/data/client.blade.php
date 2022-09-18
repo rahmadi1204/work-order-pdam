@@ -31,7 +31,7 @@
                         <div class="col-md-3">
                             <form action="{{ route('client.search') }}" method="get">
                                 <div class="form-group">
-                                    <label for="no_sambungan">Cari No Pelanggan</label>
+                                    <label for="no_sambungan">Cari No Sambungan</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <button type="submit" class="btn btn-success"><i
@@ -39,7 +39,7 @@
                                         </div>
                                         <input type="number" name="no_sambungan" class="form-control float-right"
                                             value="{{ app('request')->input('no_sambungan') ?? '' }}"
-                                            placeholder="Cari No Pelanggan" id="search-no-pelanggan">
+                                            placeholder="Cari No Sambungan" id="search-no-sambungan">
                                     </div>
                                 </div>
                             </form>
@@ -101,8 +101,8 @@
                             <th style="width: 1%">
                                 No
                             </th>
-                            <th style="width: 10%">
-                                No Pelanggan
+                            <th style="width: 15%">
+                                No Sambungan
                             </th>
                             <th style="width: 20%">
                                 Nama
@@ -127,10 +127,6 @@
                                     <a>
                                         {{ $item->no_sambungan }}
                                     </a>
-                                    <br />
-                                    <small>
-                                        {{ $item->created_at }}
-                                    </small>
                                 </td>
                                 <td>
                                     <a>
@@ -145,7 +141,8 @@
                                     {{ $item->alamat }}
                                     <br />
                                     <small>
-                                        {{ $item->id_area . ' - ' . $item->id_kelurahan }}
+                                        {{ $item->area->nama_area ?? '' }}
+                                        {{-- {{ $item->id_area . ' - ' . $item->id_kelurahan }} --}}
                                     </small>
                                 </td>
                                 <td class="project-state">

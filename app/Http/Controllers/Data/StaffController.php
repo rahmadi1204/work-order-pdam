@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Data;
 
+use App\Exports\StaffExport;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\UploadFile;
 use App\Models\Data\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StaffController extends Controller
 {
@@ -26,19 +28,7 @@ class StaffController extends Controller
     {
         // proses cari data karyawan
         $title = 'Data Karyawan';
-        $staffs = Staff::query();
-        // cari berdasarkan nama
-        if ($request->has('name')) {
-            $staffs->where('nama', 'like', '%' . $request->name . '%');
-        }
-        // cari berdasarkan kode jabatan
-        if ($request->has('kode_jabatan')) {
-            $staffs->where('kode_jabatan', 'like', '%' . $request->kode_jabatan . '%');
-        }
-        // cari berdasarkan nama jabatan
-        if ($request->has('jabatan')) {
-            $staffs->where('jabatan', 'like', '%' . $request->jabatan . '%');
-        }
+        $staffs = $this->query($request);
         $staffs = $staffs->paginate(10);
         return view('pages.data.staff', compact([
             'title',
@@ -173,5 +163,48 @@ class StaffController extends Controller
             DB::rollback();
             return redirect()->back()->with('error', 'Data karyawan gagal dihapus : ' . $th->getMessage());
         }
+    }
+    public function query(Request $request)
+    {
+
+        $staffs = Staff::query();
+        // cari berdasarkan nama
+        if ($request->has('name')) {
+            $staffs->where('nama', 'like', '%' . $request->name . '%');
+        }
+        // cari berdasarkan kode jabatan
+        if ($request->has('kode_jabatan')) {
+            $staffs->where('kode_jabatan', 'like', '%' . $request->kode_jabatan . '%');
+        }
+        // cari berdasarkan nip
+        if ($request->has('nip')) {
+            $staffs->where('nip', 'like', '%' . $request->nip . '%');
+        }
+        // cari berdasarkan nama jabatan
+        if ($request->has('jabatan')) {
+            $staffs->where('jabatan', 'like', '%' . $request->jabatan . '%');
+        }
+        return $staffs;
+    }
+    public function export(Request $request)
+    {
+        // proses export data karyawan
+        $data = $this->query($request)
+            ->select([
+                'uuid',
+                'nama',
+                'kode_jabatan',
+                'kategori_jabatan',
+                'jabatan',
+                'nip',
+                'ruang',
+                'golongan',
+                'jenjang',
+                'status',
+            ])->get();
+        $title = 'Data Karyawan';
+        $filename = 'Data Karyawan ' . date('Y-m-d H:i:s');
+        return Excel::download(new StaffExport($data, $title), $filename . '.xlsx');
+
     }
 }

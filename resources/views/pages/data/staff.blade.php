@@ -25,6 +25,13 @@
                             <a href="{{ route('staff') }}" class="btn btn-info"><i class="fa fa-sync-alt"> Refresh</i></a>
                             <a href="{{ route('staff.create') }}" class="btn btn-primary"><i class="fa fa-plus"> Tambah
                                     Data</i></a>
+                            <a href="#" class="btn btn-success" id="btn-export"><i class="fa fa-file-excel">
+                                    Export
+                                    Excel</i></a>
+                            {{-- <a href="{{ route('staff.pdf') }}" class="btn btn-danger"><i class="fa fa-file-pdf"> Export
+                                    PDF</i></a>
+                            <a href="{{ route('staff.print') }}" class="btn btn-warning"><i class="fa fa-print">
+                                    Print</i></a> --}}
                         </div>
                     </div>
                     <div class="row">
@@ -40,6 +47,22 @@
                                         <input type="text" name="kode_jabatan" class="form-control float-right"
                                             value="{{ app('request')->input('kode_jabatan') ?? '' }}"
                                             placeholder="Cari No jabatan" id="search-kode-jabatan">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <form action="{{ route('staff.search') }}" method="get">
+                                <div class="form-group">
+                                    <label for="no_sambungan">Cari NIP</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button type="submit" class="btn btn-success"><i
+                                                    class="fa fa-search"></i></button>
+                                        </div>
+                                        <input type="text" name="nip" class="form-control float-right"
+                                            value="{{ app('request')->input('nip') ?? '' }}" placeholder="Cari NIP"
+                                            id="search-nip">
                                     </div>
                                 </div>
                             </form>
@@ -76,22 +99,6 @@
                                 </div>
                             </form>
                         </div>
-                        {{-- <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="filter">Filter
-                                </label>
-                                <select name="filter" id="filterActive" class="form-control">
-                                    <option value="all"
-                                        @if (!isset($_GET['status'])) @else
-                                        selected @endif>
-                                        Semua</option>
-                                    <option value="1" {{ app('request')->input('status') == '1' ? 'selected' : '' }}>
-                                        Aktif</option>
-                                    <option value="0" {{ app('request')->input('status') == '0' ? 'selected' : '' }}>
-                                        Tidak Aktif</option>
-                                </select>
-                            </div>
-                        </div> --}}
 
                     </div>
                 </div>
@@ -130,10 +137,6 @@
                                     <a>
                                         {{ $item->kode_jabatan }}
                                     </a>
-                                    <br />
-                                    <small>
-                                        {{ $item->created_at }}
-                                    </small>
                                 </td>
                                 <td>
                                     <a>
@@ -141,7 +144,7 @@
                                     </a>
                                     <br />
                                     <small>
-                                        {{ $item->nip }}
+                                        {{ $item->nip != null ? 'NIP : ' . $item->nip : '' }}
                                     </small>
                                 </td>
                                 <td>
@@ -254,5 +257,18 @@
                 }
             })
         }
+        $('#btn-export').click(function(e) {
+            e.preventDefault();
+            var kodeJabatan = $('#search-kode-jabatan').val();
+            var nama = $('#search-nama-karyawan').val();
+            var nip = $('#search-nip').val();
+            var jabatan = $('#search-jabatan').val();
+            var url = "{{ route('staff.export') }}" + '?kode_jabatan=' + kodeJabatan + '&name=' + nama + '&nip=' +
+                nip + '&jabatan=' + jabatan;
+            console.log(url);
+            window.location.href = url;
+
+
+        });
     </script>
 @endsection

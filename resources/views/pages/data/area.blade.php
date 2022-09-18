@@ -25,13 +25,6 @@
                             <a href="{{ route('area') }}" class="btn btn-info"><i class="fa fa-sync-alt"> Refresh</i></a>
                             <a href="{{ route('area.create') }}" class="btn btn-primary"><i class="fa fa-plus"> Tambah
                                     Data</i></a>
-                            {{-- <a href="{{ route('area.export') }}" class="btn btn-success"><i class="fa fa-file-excel">
-                                    Export
-                                    Excel</i></a>
-                            <a href="{{ route('area.pdf') }}" class="btn btn-danger"><i class="fa fa-file-pdf"> Export
-                                    PDF</i></a>
-                            <a href="{{ route('area.print') }}" class="btn btn-warning"><i class="fa fa-print">
-                                    Print</i></a> --}}
                         </div>
                     </div>
                     <div class="row">
@@ -108,10 +101,6 @@
                                     <a>
                                         {{ $item->uuid }}
                                     </a>
-                                    <br />
-                                    <small>
-                                        {{ $item->created_at }}
-                                    </small>
                                 </td>
                                 <td>
                                     <a>
@@ -119,21 +108,17 @@
                                     </a>
                                     <br />
                                     <small>
-                                        {{ $item->kode_area }}
+                                        kode = {{ $item->kode_area }}
                                     </small>
                                 </td>
                                 <td>
                                     {{ $item->kode_wilayah }}
-                                    <br />
-                                    {{-- <small>
-                                        {{ $item->kode_kelurahan }}
-                                    </small> --}}
                                 </td>
                                 <td>
                                     {{ $item->nama_jalan }}
                                     <br />
                                     <small>
-                                        {{ $item->kode_jalan }}
+                                        kode = {{ $item->kode_jalan }}
                                     </small>
                                 </td>
                                 <td class="project-actions text-right">

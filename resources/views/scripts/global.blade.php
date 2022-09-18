@@ -34,6 +34,15 @@
 </script>
 <script>
     $(function() {
+        $('.telp').inputmask({
+            mask: '(999) 9999-9999'
+        });
+        $('.hp').inputmask({
+            mask: '9999-9999-99999'
+        });
+        $('.id-pelanggan').inputmask({
+            mask: '99/99/99/9999'
+        });
         //Initialize Select2 Elements
         $('.select2').select2()
 

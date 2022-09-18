@@ -30,8 +30,17 @@ class WilayahImport implements ToCollection, WithHeadingRow, WithChunkReading, W
             //     'created_at' => $row['created_at'],
             //     'updated_at' => $row['updated_at'],
             // ], ['uuid'], ['nama_area', 'kode_kelurahan', 'nama_kelurahan', 'kode_jalan', 'nama_jalan', 'deskripsi', 'created_at', 'updated_at']);
+            if ($row['kode_area'] < 10) {
+                $row['kode_area'] = '0' . $row['kode_area'];
+            }
+            if ($row['kode_wilayah'] < 10) {
+                $row['kode_wilayah'] = '0' . $row['kode_wilayah'];
+            }
+            if ($row['kode_jalan'] < 10) {
+                $row['kode_jalan'] = '0' . $row['kode_jalan'];
+            }
             Area::updateOrCreate([
-                'uuid' => 'AREA-' . $row['kode_jalan'],
+                'uuid' => 'AREA-' . $row['kode_area'] . '.' . $row['kode_wilayah'] . '.' . $row['kode_jalan'],
             ], [
                 'kode_area' => $row['kode_area'],
                 'nama_area' => $row['nama_area'],

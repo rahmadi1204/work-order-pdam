@@ -2,6 +2,7 @@
 
 namespace App\Models\Data;
 
+use App\Models\Data\Area;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,5 +26,9 @@ class Client extends Model
             get:fn($value) => strtoupper($value),
             set:fn($value) => $value,
         );
+    }
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'id_area', 'uuid');
     }
 }
