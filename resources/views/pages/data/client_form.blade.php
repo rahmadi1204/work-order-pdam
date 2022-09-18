@@ -65,7 +65,7 @@
                                                             <option value="{{ $item->uuid }}"
                                                                 {{ isset($data) && $data->area_id == $item->uuid ? 'selected' : '' }}
                                                                 data-id="{{ str_replace(['AREA-', '.'], '', $item->uuid) }}">
-                                                                {{ $item->nama_jalan . ' KEC. ' . $item->nama_area }}
+                                                                {{ $item->nama_jalan . ' KEC. ' . $item->nama_area . ' | Kode : ' . str_replace(['AREA-'], '', $item->uuid) }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -87,7 +87,16 @@
                                                     <input type="text" name="no_sambungan" class="form-control"
                                                         id="no_sambungan"
                                                         value="{{ $data->no_sambungan ?? old('no_sambungan') }}"
-                                                        placeholder="No Sambungan" required readonly>
+                                                        placeholder="No Sambungan" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="kategori" class="col-sm-2 col-form-label">
+                                                    Nomor Urut<code>*</code></label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="no_urut" class="form-control" id="no_urut"
+                                                        value="{{ $data->no_urut ?? old('no_urut') }}"
+                                                        placeholder="Nomor Urut" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -97,16 +106,7 @@
                                                     <input type="text" name="id_pelanggan"
                                                         class="form-control id-pelanggan" id="id_pelanggan"
                                                         value="{{ $data->id_pelanggan ?? old('id_pelanggan') }}"
-                                                        placeholder="ID Pelanggan" required readonly>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="kategori" class="col-sm-2 col-form-label">
-                                                    Nomor Urut<code>*</code></label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="no_urut" class="form-control" id="no_urut"
-                                                        value="{{ $data->no_urut ?? old('no_urut') }}"
-                                                        placeholder="Nomor Urut" required readonly>
+                                                        placeholder="ID Pelanggan" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -203,7 +203,8 @@
             $('#longitude').val(position.coords.longitude);
         }
     </script>
-    <script>
+    {{-- create id pelanggan otomatis --}}
+    {{-- <script>
         $('#area').change(function(e) {
             e.preventDefault();
             let id = $('#area option:selected').data('id');
@@ -221,7 +222,6 @@
                     id_pelanggan: id
                 },
                 success: function(response) {
-                    console.log(response);
                     $('#id_pelanggan').val(response.data);
                     $('#no_urut').val(response.no_urut);
                     $('#no_sambungan').val(response.no_sambungan);
@@ -229,5 +229,5 @@
             });
 
         }
-    </script>
+    </script> --}}
 @endsection

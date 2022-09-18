@@ -92,8 +92,23 @@ class AreaController extends Controller
         // proses simpan data
         DB::beginTransaction();
         try {
+            if ($request->kode_area < 10) {
+                $kode_area = '0' . $request->kode_area;
+            } else {
+                $kode_area = $request->kode_area;
+            }
+            if ($request->kode_wilayah < 10) {
+                $kode_wilayah = '0' . $request->kode_wilayah;
+            } else {
+                $kode_wilayah = $request->kode_wilayah;
+            }
+            if ($request->kode_jalan < 10) {
+                $kode_jalan = '0' . $request->kode_jalan;
+            } else {
+                $kode_jalan = $request->kode_jalan;
+            }
             $store = Area::create([
-                'uuid' => 'AREA-' . $request->kode_jalan,
+                'uuid' => 'AREA-' . $kode_area . '.' . $kode_wilayah . '.' . $kode_jalan,
                 'kode_area' => $request->kode_area,
                 'nama_area' => $request->nama_area,
                 'kode_wilayah' => $request->kode_wilayah,

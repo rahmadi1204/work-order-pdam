@@ -7,9 +7,9 @@
                     <div class="col-md-6">
                         <h5>Aturan Kode</h5>
 
-                        <p>Kode area = <b> contoh (1)</b> <br>
-                            Kode wilayah = Kode wilayah.angka <b> contoh (1.2)</b> <br>
-                            Kode jalan = Kode kelurahan.angka <b> contoh (1.2.2)</b><br>
+                        <p>Kode area = <b> contoh (01)</b> <br>
+                            Kode wilayah = Kode wilayah.angka <b> contoh (01.02)</b> <br>
+                            Kode jalan = Kode kelurahan.angka <b> contoh (01.10.21)</b><br>
                         </p>
                     </div>
                     <div class="col-md-6">
@@ -105,6 +105,7 @@
                     <a href="{{ route('area') }}" class="btn btn-secondary mx-1">Kembali</a>
                     <button type="submit" class="btn btn-primary mx-1">Simpan</button>
                 </div>
+                {{-- show list data jalan --}}
                 {{-- <div class="row mt-2">
                     <div class="col-md-12">
                         <div class="card card-success">
@@ -167,7 +168,6 @@
         $('#kode_area_wilayah').change(function(e) {
             e.preventDefault();
             let kode = $(this).val();
-            $('#kode_jalan').val(kode + '.');
             $('#kode_jalan').focus();
             $('#kode_wilayah').val(kode);
             $('#nama_jalan').val('');
