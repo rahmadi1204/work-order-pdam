@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\UploadFile;
 use App\Models\Data\Area;
 use App\Models\Data\Client;
+use App\Models\Data\Kelurahan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +45,11 @@ class ClientController extends Controller
         if ($request->status != 'all') {
             $clients->where('is_active', $request->status);
         }
+        if ($request->date != null) {
+            $start_date = substr($request->date, 0, 10);
+            $end_date = substr($request->date, 13, 10);
+            $clients->whereBetween('tgl_masuk', [$start_date, $end_date]);
+        }
         return $clients;
     }
     public function get(Request $request)
@@ -55,7 +61,7 @@ class ClientController extends Controller
             })
             ->addIndexColumn()
             ->editColumn('tgl_masuk', function ($data) {
-                return Carbon::parse($data->tgl_masuk)->format('Y-M-d') ?? '-';
+                return Carbon::parse($data->tgl_masuk)->format('Y M d') ?? '-';
             })
             ->addColumn('status', function ($data) {
                 if ($data->is_active == 1) {
@@ -105,9 +111,11 @@ class ClientController extends Controller
         // view form tambah client
         $title = 'Tambah Data Pelanggan';
         $areas = Area::orderBy('nama_jalan', 'asc')->get();
+        $kelurahans = Kelurahan::orderBy('nama_kelurahan', 'asc')->get();
         return view('pages.data.client_form', compact([
             'title',
             'areas',
+            'kelurahans',
         ]));
     }
     public function store(Request $request)
@@ -117,6 +125,7 @@ class ClientController extends Controller
             'nama' => 'required',
             'no_sambungan' => 'required|unique:clients,no_sambungan',
             'id_area' => 'required',
+            'id_kelurahan' => 'required',
             'no_urut' => 'required',
             'id_pelanggan' => 'required|unique:clients,id_pelanggan',
             'alamat' => 'required',
@@ -128,6 +137,7 @@ class ClientController extends Controller
             'no_sambungan.required' => 'Nomor sambungan tidak boleh kosong',
             'no_sambungan.unique' => 'Nomor sambungan sudah terdaftar',
             'id_area.required' => 'Area tidak boleh kosong',
+            'id_kelurahan.required' => 'Kelurahan tidak boleh kosong',
             'no_urut.required' => 'Nomor urut tidak boleh kosong',
             'id_pelanggan.required' => 'ID Pelanggan tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
@@ -147,6 +157,7 @@ class ClientController extends Controller
             $client->nama = $request->nama;
             $client->no_sambungan = $request->no_sambungan;
             $client->id_area = $request->id_area;
+            $client->id_kelurahan = $request->id_kelurahan;
             $client->no_urut = $request->no_urut;
             $client->id_pelanggan = $request->id_pelanggan;
             $client->alamat = $request->alamat;
@@ -180,10 +191,12 @@ class ClientController extends Controller
         $title = 'Edit Data Pelanggan';
         $data = Client::where('no_sambungan', $id)->firstOrFail();
         $areas = Area::orderBy('nama_jalan', 'asc')->get();
+        $kelurahans = Kelurahan::orderBy('nama_kelurahan', 'asc')->get();
         return view('pages.data.client_form', compact([
             'title',
             'data',
             'areas',
+            'kelurahans',
         ]));
     }
     public function update(Request $request, $id)
@@ -193,6 +206,7 @@ class ClientController extends Controller
             'nama' => 'required',
             'no_sambungan' => 'required|unique:clients,no_sambungan,' . $id . ',id',
             'id_area' => 'required',
+            'id_kelurahan' => 'required',
             'no_urut' => 'required',
             'id_pelanggan' => 'required|unique:clients,id_pelanggan,' . $id . ',id',
             'alamat' => 'required',
@@ -204,6 +218,7 @@ class ClientController extends Controller
             'no_sambungan.required' => 'Nomor sambungan tidak boleh kosong',
             'no_sambungan.unique' => 'Nomor sambungan sudah terdaftar',
             'id_area.required' => 'Area tidak boleh kosong',
+            'id_kelurahan.required' => 'Kelurahan tidak boleh kosong',
             'no_urut.required' => 'Nomor urut tidak boleh kosong',
             'id_pelanggan.required' => 'ID Pelanggan tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
@@ -223,6 +238,7 @@ class ClientController extends Controller
             $client->nama = $request->nama;
             $client->no_sambungan = $request->no_sambungan;
             $client->id_area = $request->id_area;
+            $client->id_kelurahan = $request->id_kelurahan;
             $client->no_urut = $request->no_urut;
             $client->id_pelanggan = $request->id_pelanggan;
             $client->alamat = $request->alamat;

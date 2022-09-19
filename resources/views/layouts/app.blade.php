@@ -64,10 +64,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('dashboard') }}">{{ $title ?? 'Error' }}</a>
-                                </li>
-                                <li class="breadcrumb-item active">{{ $subititle ?? 'Page' }}</li>
+                                <li class="breadcrumb-item active">{{ $title ?? 'Error' }}</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

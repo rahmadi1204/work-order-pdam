@@ -9,5 +9,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/imports/client', 'client')->name('import.client');
         Route::post('/imports/staff', 'staff')->name('import.staff');
         Route::post('/imports/wilayah', 'wilayah')->name('import.wilayah');
+        Route::post('/imports/kelurahan', 'kelurahan')->name('import.kelurahan');
     });
 });

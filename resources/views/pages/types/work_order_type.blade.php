@@ -23,63 +23,53 @@
                     <div class="row mb-2">
                         <div class="col-12">
                             <a href="#" class="btn btn-info refresh"><i class="fa fa-sync-alt"> Refresh</i></a>
-                            <a href="{{ route('client.create') }}" class="btn btn-primary"><i class="fa fa-plus"> Tambah
+                            <a href="{{ route('type.work-order.create') }}" class="btn btn-primary"><i class="fa fa-plus">
+                                    Tambah
                                     Data</i></a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="no_sambungan">Cari No Sambungan</label>
+                                <label for="kode_work_order">Cari Kode Work Order</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-info search"><i
                                                 class="fa fa-search"></i></button>
                                     </div>
-                                    <input type="number" name="no_sambungan" class="form-control float-right"
-                                        placeholder="Cari No Sambungan" id="search-no-sambungan">
+                                    <input type="text" name="kode_work_order" class="form-control float-right"
+                                        placeholder="Cari Kode Work Order" id="search-kode-work-order">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="nama">Cari Nama Pelanggan</label>
+                                <label for="jenis_work_order">Cari Jenis Work Order</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-info search"><i
                                                 class="fa fa-search"></i></button>
                                     </div>
-                                    <input type="text" name="name" class="form-control float-right" placeholder="Nama"
-                                        id="search-nama-pelanggan">
+                                    <input type="text" name="jenis_work_order" class="form-control float-right"
+                                        placeholder="Cari Jenis Work Order" id="search-jenis-work-order">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="alamat">Alamat</label>
+                                <label for="responder">Cari Responder</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-info search"><i
                                                 class="fa fa-search"></i></button>
                                     </div>
-                                    <input type="text" name="alamat"
-                                        class="form-control float-right"placeholder="Alamat" id="search-alamat">
+                                    <input type="text" name="responder" class="form-control float-right"
+                                        placeholder="Cari Responder" id="search-responder">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="filter">Filter
-                                </label>
-                                <select name="status" id="filterActive" class="form-control">
-                                    <option value="all">Semua</option>
-                                    <option value="1">Aktif</option>
-                                    <option value="0">Tidak Aktif</option>
-                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-md-4">
                             <label for="start_date">Tanggal</label>
                             <div class="input-group">
@@ -89,10 +79,10 @@
                                     </span>
                                 </div>
                                 <input type="text" name="date" class="form-control float-right" id="reservation"
-                                    value="{{ '2011-01-01 - ' .now()->endOfMonth()->format('Y-m-d') }}">
+                                    value="{{ now()->startOfMonth()->format('Y-m-d') .' - ' .now()->endOfMonth()->format('Y-m-d') }}">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <table class="table table-striped" id="datatable">
                     <thead>
@@ -100,20 +90,20 @@
                             <th style="width: 1%">
                                 No
                             </th>
-                            <th>
-                                Tanggal Daftar
-                            </th>
                             <th style="width: 15%">
-                                No Sambungan
+                                Kode
+                            </th>
+                            <th>
+                                Jenis
+                            </th>
+                            <th>
+                                PTS
                             </th>
                             <th style="width: 20%">
-                                Nama
+                                Responder
                             </th>
-                            <th>
-                                Alamat
-                            </th>
-                            <th style="width: 8%" class="text-center">
-                                Status
+                            <th style="width: 20%">
+                                Keterangan
                             </th>
                             <th style="width: 20%">
                             </th>
@@ -133,16 +123,9 @@
         <br>
     </div>
     <!-- /.content -->
-    {{-- <a href="{{ route('client.export') }}" class="btn btn-success"><i class="fa fa-file-excel">
-                                    Export
-                                    Excel</i></a>
-                            <a href="{{ route('client.pdf') }}" class="btn btn-danger"><i class="fa fa-file-pdf"> Export
-                                    PDF</i></a>
-                            <a href="{{ route('client.print') }}" class="btn btn-warning"><i class="fa fa-print">
-                                    Print</i></a> --}}
 @endsection
 @section('modal')
 @endsection
 @section('scripts')
-    @include('pages.data.client_script')
+    @include('pages.types.work_order_type_script')
 @endsection

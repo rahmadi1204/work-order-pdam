@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\UploadFile;
 use App\Imports\ClientImport;
+use App\Imports\KelurahanImport;
 use App\Imports\StaffImport;
 use App\Imports\WilayahImport;
 use Illuminate\Http\Request;
@@ -68,6 +69,26 @@ class ImportController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Import Wilayah ' . $file->getClientOriginalName() . ' Success',
+            ]);
+        } catch (\Throwable$th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage(),
+            ]);
+            // $event = new ImportEvent('Import  Failed', auth()->user()->id);
+        }
+    }
+    public function kelurahan(Request $request)
+    {
+        try {
+            $file = $request->file('file');
+            // $path = 'files/excel';
+            // $fileData = $this->uploadStorage($file, $path);
+            // $filePath = $fileData['path'] . '/' . $fileData['name'];
+            $import = Excel::import(new KelurahanImport, $file);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Import Kelurahan ' . $file->getClientOriginalName() . ' Success',
             ]);
         } catch (\Throwable$th) {
             return response()->json([

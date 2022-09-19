@@ -34,6 +34,16 @@
 </script>
 <script>
     $(function() {
+        $('#datepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            icons: {
+                time: "far fa-clock",
+                date: "far fa-calendar",
+                up: "fas fa-arrow-up",
+                down: "fas fa-arrow-down"
+            }
+
+        })
         $('.telp').inputmask({
             mask: '(999) 9999-9999'
         });
@@ -75,7 +85,11 @@
         });
 
         //Date range picker
-        $('#reservation').daterangepicker()
+        $('#reservation').daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        })
         //Date range picker with time picker
         $('#reservationtime').daterangepicker({
             timePicker: true,

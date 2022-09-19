@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Type;
+namespace App\Http\Controllers\Types;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TypeWorkOrderController extends Controller
+class TypeDocumentController extends Controller
 {
     //
 }

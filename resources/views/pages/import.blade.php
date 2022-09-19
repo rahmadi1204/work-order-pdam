@@ -86,6 +86,32 @@
                     </div>
                     <!-- /.card -->
                 </div>
+                <div class="col-md-6">
+
+                    <!-- general form elements -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Import Kelurahan</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="#" method="post" enctype="multipart/form-data" id="form-import-excel-kelurahan">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label>
+                                    <input type="file" class="form-control" accept=".xlsx, .xls, .csv" name="file">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-danger import-kelurahan">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
     </section>
@@ -151,6 +177,39 @@
             $.ajax({
                 type: "post",
                 url: "{{ route('import.wilayah') }}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == 'success') {
+                        $('#alert-success').show();
+                        $('.message').text(response.message);
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.message
+                        });
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.message
+                    })
+                }
+            });
+            form[0].reset();
+        });
+        $('.import-kelurahan').click(function(e) {
+            e.preventDefault();
+            let form = $('#form-import-excel-kelurahan');
+            let formData = new FormData(form[0]);
+            swalAlert('Importing...', 'Please wait...', 'info');
+            $.ajax({
+                type: "post",
+                url: "{{ route('import.kelurahan') }}",
                 data: formData,
                 processData: false,
                 contentType: false,

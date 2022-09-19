@@ -52,7 +52,7 @@ class ClientImport implements ToCollection, WithHeadingRow, WithChunkReading, Wi
                 'alamat' => $row['alamat'] ?? null,
                 'id_area' => 'AREA-' . $row['id_kecamatan'] . '.' . $row['id_wilayah'] . '.' . $row['id_jalan'] ?? null,
                 'id_kecamatan' => $row['id_kecamatan'] ?? null,
-                'id_kelurahan' => $row['id_kecamatan'] . '.' . $row['id_kelurahan'] ?? null,
+                'id_kelurahan' => 'KEL-' . $row['id_kecamatan'] . '.' . $row['id_kelurahan'] ?? null,
                 'id_wilayah' => $row['id_kecamatan'] . '.' . $row['id_wilayah'] ?? null,
                 'id_jalan' => $row['id_kecamatan'] . '.' . $row['id_wilayah'] . '.' . $row['id_jalan'] ?? null,
                 'is_active' => $row['aktif'] ?? 0,

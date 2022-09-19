@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('type_work_orders', function (Blueprint $table) {
+        Schema::create('kelurahans', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->bigInteger('no_work_order');
-            $table->string('kode_work_order');
-            $table->string('jenis_work_order')->nullable();
-            $table->string('responder');
-            $table->bigInteger('pts')->default(1);
-            $table->string('keterangan')->nullable();
+            $table->string('kode_kecamatan')->nullable();
+            $table->string('nama_kecamatan')->nullable();
+            $table->string('kode_kelurahan')->nullable();
+            $table->string('nama_kelurahan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_work_orders');
+        Schema::dropIfExists('kelurahans');
     }
 };

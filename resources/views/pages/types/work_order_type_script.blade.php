@@ -7,13 +7,11 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('client.get') }}",
+                url: "{{ route('type.work-order.get') }}",
                 data: function(d) {
-                    d.no_sambungan = $('input[name=no_sambungan]').val();
-                    d.name = $('input[name=name]').val();
-                    d.alamat = $('input[name=alamat]').val();
-                    d.status = $('#filterActive').val();
-                    d.date = $('input[name=date]').val();
+                    d.kode_work_order = $('input[name=kode_work_order]').val();
+                    d.jenis_work_order = $('input[name=jenis_work_order]').val();
+                    d.responder = $('input[name=responder]').val();
                 }
             },
             columns: [{
@@ -23,24 +21,24 @@
                     searchable: false
                 },
                 {
-                    data: 'tgl_masuk',
-                    name: 'tgl_masuk'
+                    data: 'kode_work_order',
+                    name: 'kode_work_order'
                 },
                 {
-                    data: 'no_sambungan',
-                    name: 'no_sambungan'
+                    data: 'jenis_work_order',
+                    name: 'jenis_work_order'
                 },
                 {
-                    data: 'nama',
-                    name: 'nama'
+                    data: 'pts',
+                    name: 'pts'
                 },
                 {
-                    data: 'alamat',
-                    name: 'alamat'
+                    data: 'responder',
+                    name: 'responder'
                 },
                 {
-                    data: 'status',
-                    name: 'status'
+                    data: 'keterangan',
+                    name: 'keterangan'
                 },
                 {
                     data: 'action',
@@ -59,25 +57,14 @@
     });
     $('.refresh').click(function(e) {
         e.preventDefault();
-        $('input[name=no_sambungan]').val('');
-        $('input[name=name]').val('');
-        $('input[name=alamat]').val('');
-        $('input[name=status]').val('all');
-        $('input[name=date]').val('');
-        datatable();
-    });
-    $('#filterActive').change(function(e) {
-        e.preventDefault();
-        $('input[name=no_sambungan]').val('');
-        $('input[name=name]').val('');
-        $('input[name=alamat]').val('');
-        $('input[name=date]').val('');
+        $('input[name=kode_work_order]').val('');
+        $('input[name=jenis_work_order]').val('');
+        $('input[name=responder]').val('');
         datatable();
     });
     $('#reservation').blur(function(e) {
         e.preventDefault();
         datatable();
-
     });
 
     function deleteConfirm(id, name) {
@@ -93,7 +80,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ url('clients') }}" + '/delete/' + id,
+                    url: "{{ url('types/work-order') }}" + '/delete/' + id,
                     type: "POST",
                     data: {
                         '_token': "{{ csrf_token() }}"

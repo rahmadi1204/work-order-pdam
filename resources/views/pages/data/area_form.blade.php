@@ -4,21 +4,19 @@
         <div class="container">
             <div class="callout callout-info">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <h5>Aturan Kode</h5>
 
-                        <p>Kode area = <b> contoh (01)</b> <br>
-                            Kode wilayah = Kode wilayah.angka <b> contoh (01.02)</b> <br>
-                            Kode jalan = Kode kelurahan.angka <b> contoh (01.10.21)</b><br>
+                        <p>
+                            Tambahkan 0 bila angka 1 digit.<br>
+                            Contoh : 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13,
+                            14,15, 16, 17, 18, 19, 20, dst.
                         </p>
-                    </div>
-                    <div class="col-md-6">
                     </div>
                 </div>
             </div>
             <form action="{{ isset($data) ? route('area.update', $data->uuid) : route('area.store') }}" method="post">
                 @csrf
-                <input type="hidden" name="uuid" value="{{ $data->uuid ?? '' }}">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card card-primary">
@@ -74,13 +72,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputEstimatedBudget">Pilih Wilayah</label>
-                                    <select name="kode_area_wilayah" id="kode_area_wilayah" class="form-control">
-
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="kode_wilayah">Kode Wilayah</label>
+                                    <select name="kode_area_wilayah" id="kode_area_wilayah" class="form-control mb-2">
+                                        <option value="">Pilih Wilayah</option>
+                                    </select>
                                     <input type="text" name="kode_wilayah" id="kode_wilayah"
                                         value="{{ $data->kode_wilayah ?? old('kode_wilayah') }}" class="form-control"
                                         required>

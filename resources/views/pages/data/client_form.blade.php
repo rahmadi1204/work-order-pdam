@@ -56,23 +56,6 @@
                                     <div class="tab-pane active" id="data">
                                         <form class="form-horizontal">
                                             <div class="form-group row">
-                                                <label for="kategori" class="col-sm-2 col-form-label">
-                                                    Area<code>*</code></label>
-                                                <div class="col-sm-10">
-                                                    <select name="id_area" id="area" class="form-control select2">
-                                                        <option value="">-- Pilih Area --</option>
-                                                        @foreach ($areas as $item)
-                                                            <option value="{{ $item->uuid }}"
-                                                                {{ isset($data) && $data->id_area == $item->uuid ? 'selected' : '' }}
-                                                                {{ old('id_area') == $item->uuid ? 'selected' : '' }}
-                                                                data-id="{{ str_replace(['AREA-', '.'], '', $item->uuid) }}">
-                                                                {{ $item->nama_jalan . ' KEC. ' . $item->nama_area . ' | Kode : ' . str_replace(['AREA-'], '', $item->uuid) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
                                                 <label for="tgl_masuk" class="col-sm-2 col-form-label">Tanggal
                                                     Masuk<code>*</code></label>
                                                 <div class="col-sm-10">
@@ -100,6 +83,40 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="kategori" class="col-sm-2 col-form-label">
+                                                    Kelurahan<code>*</code></label>
+                                                <div class="col-sm-10">
+                                                    <select name="id_kelurahan" id="kelurahan" class="form-control select2">
+                                                        <option value="">-- Pilih Kelurahan --</option>
+                                                        @foreach ($kelurahans as $item)
+                                                            <option value="{{ $item->uuid }}"
+                                                                {{ isset($data) && $data->id_kelurahan == $item->uuid ? 'selected' : '' }}
+                                                                {{ old('id_kelurahan') == $item->uuid ? 'selected' : '' }}
+                                                                data-id="{{ str_replace(['KEL-', '.'], '', $item->uuid) }}">
+                                                                {{ 'KEC. ' . $item->nama_kecamatan . ' - ' . $item->nama_kelurahan }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="kategori" class="col-sm-2 col-form-label">
+                                                    Area<code>*</code></label>
+                                                <div class="col-sm-10">
+                                                    <select name="id_area" id="area" class="form-control select2">
+                                                        <option value="">-- Pilih Area --</option>
+                                                        @foreach ($areas as $item)
+                                                            <option value="{{ $item->uuid }}"
+                                                                {{ isset($data) && $data->id_area == $item->uuid ? 'selected' : '' }}
+                                                                {{ old('id_area') == $item->uuid ? 'selected' : '' }}
+                                                                data-id="{{ str_replace(['AREA-', '.'], '', $item->uuid) }}">
+                                                                {{ $item->nama_jalan . ' | Kode : ' . str_replace(['AREA-'], '', $item->uuid) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="id_pelanggan" class="col-sm-2 col-form-label">No
                                                     Sambungan<code>*</code></label>
                                                 <div class="col-sm-10">
@@ -113,8 +130,8 @@
                                                 <label for="kategori" class="col-sm-2 col-form-label">
                                                     Nomor Urut<code>*</code></label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="no_urut" class="form-control" id="no_urut"
-                                                        value="{{ $data->no_urut ?? old('no_urut') }}"
+                                                    <input type="text" name="no_urut" class="form-control"
+                                                        id="no_urut" value="{{ $data->no_urut ?? old('no_urut') }}"
                                                         placeholder="Nomor Urut" required>
                                                 </div>
                                             </div>
@@ -217,16 +234,6 @@
         $("input[data-bootstrap-switch]").each(function() {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         })
-        $('#datepicker').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            icons: {
-                time: "far fa-clock",
-                date: "far fa-calendar",
-                up: "fas fa-arrow-up",
-                down: "fas fa-arrow-down"
-            }
-
-        })
     </script>
     <script>
         function getKoordinate() {
@@ -255,7 +262,6 @@
         function createID(id) {
             let no_urut = $('#no_urut').val();
             let id_pelanggan = id + no_urut;
-            console.log(id);
             $.ajax({
                 type: "get",
                 url: "{{ route('client.check') }}",
