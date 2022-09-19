@@ -7,9 +7,9 @@
                     <!-- small box -->
                     <div class="small-box bg-primary">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{ $newWorkOrder ?? 0 }}</h3>
 
-                            <p>Permintaan Baru<span><sub class="text-mute">fake data</sub></span></p>
+                            <p>Permintaan Baru</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -22,9 +22,9 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h3>{{ $processWorkOrderPercent ?? 0 }}<sup style="font-size: 20px">%</sup></h3>
 
-                            <p>Selesai Dikerjakan<span><sub class="text-mute">fake data</sub></span></p>
+                            <p>Selesai Dikerjakan</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -71,7 +71,7 @@
                     <!-- AREA CHART -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Grafik Work Order<span><sub class="text-mute">fake data</sub></span></h3>
+                            <h3 class="card-title">Grafik Work Order<span></span></h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">

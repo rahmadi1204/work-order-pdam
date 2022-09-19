@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('google_maps')->nullable();
             $table->string('deskripsi')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status_work_order')->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });

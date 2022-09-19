@@ -2,7 +2,7 @@
 @section('content')
     <section class="content">
         <div class="container">
-            <form action="{{ isset($data) ? route('work-order.update', $data->uuid) : route('work-order.store') }}"
+            <form action="{{ isset($data) ? route('work-order.update', $data->id) : route('work-order.store') }}"
                 method="post">
                 @csrf
                 <div class="row">
@@ -58,9 +58,9 @@
                                     <select name="staff_id" id="staff_id" class="form-control select2">
                                         <option value="">-- Pilih Petugas --</option>
                                         @forelse ($staff as $item)
-                                            <option value="{{ $item->uuid }}"
-                                                {{ isset($data) && $data->staff_id == $item->uuid ? 'selected' : '' }}
-                                                {{ old('staff_id') == $item->uuid ? 'selected' : '' }}>
+                                            <option value="{{ $item->kode_jabatan }}"
+                                                {{ isset($data) && $data->staff_id == $item->kode_jabatan ? 'selected' : '' }}
+                                                {{ old('staff_id') == $item->kode_jabatan ? 'selected' : '' }}>
                                                 {{ $item->nama }} <sub>{{ $item->golongan }}</sub></option>
                                         @empty
                                             <option value="">Tidak ada data</option>
@@ -90,11 +90,15 @@
                                 <div class="form-group">
                                     <label for="client_id">Pelanggan<code>*</code></label>
                                     <select name="client_id" id="client_id" class="form-control select2">
+                                        @isset($client)
+                                            <option value="{{ $client->no_sambungan }}" selected>{{ $client->nama }}</option>
+                                        @endisset
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat<code>*</code></label>
-                                    <input type="text" name="alamat" id="alamat" class="form-control" readonly>
+                                    <input type="text" name="alamat" id="alamat" class="form-control"
+                                        value="{{ $client->alamat ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="kategori">
@@ -165,7 +169,35 @@
                     if (response.length > 0) {
                         response.forEach(element => {
                             html +=
-                                `<option value="${element.uuid}">${element.nama} <sub></sub></option>`;
+                                `<option value="${element.kode_jabatan}">${element.nama} <sub></sub></option>`;
+                        });
+                    } else {
+                        html += `<option value="">Tidak ada data</option>`;
+                    }
+                    $('#staff_id').html(html);
+                }
+            });
+        });
+        $('#jenis_work_order option:selected').each(function() {
+            let filter = $(this).data('responder');
+            let keterangan = $(this).data('keterangan');
+            let identifier = 'kategori_jabatan';
+            $('#kategori_jabatan').val(filter);
+            $('#keterangan').val(keterangan);
+            $.ajax({
+                type: "GET",
+                url: "{{ route('staff.filter') }}",
+                data: {
+                    filter: filter,
+                    identifier: identifier
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    let html = '';
+                    if (response.length > 0) {
+                        response.forEach(element => {
+                            html +=
+                                `<option value="${element.kode_jabatan}">${element.nama} <sub></sub></option>`;
                         });
                     } else {
                         html += `<option value="">Tidak ada data</option>`;

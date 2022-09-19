@@ -79,6 +79,8 @@ class DashboardController extends Controller
             'Sabtu',
             'Minggu',
         ];
+        $newWorkOrder = WorkOrder::where('status', 'pending')->count();
+        $processWorkOrderPercent = WorkOrder::where('status', 'proses')->count() / WorkOrder::count() * 100;
         return view('pages.dashboard', compact([
             'title',
             'countClients',
@@ -90,6 +92,8 @@ class DashboardController extends Controller
             'woProses',
             'woSelesai',
             'woTotal',
+            'newWorkOrder',
+            'processWorkOrderPercent',
         ]));
     }
 }

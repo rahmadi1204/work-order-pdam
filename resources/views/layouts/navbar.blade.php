@@ -41,7 +41,7 @@
                             aria-expanded="false" class="nav-link dropdown-toggle">Work Order</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin')
-                                <li><a href="{{ url('/work-order/create') }}" class="dropdown-item">Buat Baru</a></li>
+                                <li><a href="{{ url('/work-order') }}" class="dropdown-item">Semua</a></li>
                             @endif
                             <li><a href="{{ url('/work-order/request') }}" class="dropdown-item">Permintaan</a></li>
                             <li><a href="{{ url('/work-order/response') }}" class="dropdown-item">Respon</a></li>

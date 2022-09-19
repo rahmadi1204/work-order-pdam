@@ -8,7 +8,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('client.get') }}",
+                url: "{{ route('work-order.get') }}",
                 data: function(d) {
                     d.no_sambungan = $('input[name=no_sambungan]').val();
                     d.name = $('input[name=name]').val();
@@ -24,24 +24,24 @@
                     searchable: false
                 },
                 {
-                    data: 'tgl_masuk',
-                    name: 'tgl_masuk'
+                    data: 'tgl_work_order',
+                    name: 'tgl_work_order'
                 },
                 {
-                    data: 'no_sambungan',
-                    name: 'no_sambungan'
+                    data: 'type_id',
+                    name: 'type_id'
                 },
                 {
-                    data: 'nama',
-                    name: 'nama'
+                    data: 'staff_id',
+                    name: 'staff.nama'
                 },
                 {
-                    data: 'alamat',
-                    name: 'alamat'
+                    data: 'client_id',
+                    name: 'client.nama'
                 },
                 {
-                    data: 'status',
-                    name: 'status'
+                    data: 'status_work_order',
+                    name: 'status_work_order'
                 },
                 {
                     data: 'action',
@@ -62,19 +62,19 @@
     // tombol refresh data
     $('.refresh').click(function(e) {
         e.preventDefault();
-        $('input[name=no_sambungan]').val('');
+        $('input[name=type_id]').val('');
         $('input[name=name]').val('');
-        $('input[name=alamat]').val('');
-        $('input[name=status]').val('all');
+        $('input[name=client]').val('');
         $('input[name=date]').val('');
+        $('input[name=status]').val('all');
         datatable();
     });
     // mengosongkan field pencarian lain lalu cari data
     $('#filterActive').change(function(e) {
         e.preventDefault();
-        $('input[name=no_sambungan]').val('');
+        $('input[name=type_id]').val('');
         $('input[name=name]').val('');
-        $('input[name=alamat]').val('');
+        $('input[name=client]').val('');
         $('input[name=date]').val('');
         datatable();
     });
@@ -98,7 +98,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ url('clients') }}" + '/delete/' + id,
+                    url: "{{ url('work-order') }}" + '/delete/' + id,
                     type: "POST",
                     data: {
                         '_token': "{{ csrf_token() }}"
