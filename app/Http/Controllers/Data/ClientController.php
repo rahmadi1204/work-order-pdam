@@ -106,6 +106,12 @@ class ClientController extends Controller
             return response()->json($th->getMessage());
         }
     }
+    public function select(Request $request)
+    {
+        // query data client
+        $clients = Client::where('nama', 'like', '%' . $request->q . '%')->take(5)->get(['uuid', 'nama', 'no_sambungan', 'alamat', 'latitude', 'longitude']);
+        return response()->json($clients);
+    }
     public function create()
     {
         // view form tambah client

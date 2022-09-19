@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::controller(StaffController::class)->group(function () {
         Route::get('/staffs', 'index')->name('staff'); //view halaman
         Route::get('/staffs/search', 'search')->name('staff.search'); //cari data
+        Route::get('/staffs/filter', 'filter')->name('staff.filter'); //filter data
         Route::get('/staffs/create', 'create')->name('staff.create'); //view form tambah
         Route::post('/staffs/store', 'store')->name('staff.store'); //simpan data
         Route::get('/staffs/edit/{id}', 'edit')->name('staff.edit'); //view form edit
@@ -51,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::controller(ClientController::class)->group(function () {
         Route::get('/clients', 'index')->name('client'); //view halaman
         Route::get('/clients/get', 'get')->name('client.get'); //ambil data
+        Route::get('/clients/select', 'select')->name('client.select'); //pilih data
         Route::get('/clients/create', 'create')->name('client.create'); //view form tambah
         Route::get('/clients/check', 'check')->name('client.check'); //check id pelanggan
         Route::post('/clients/store', 'store')->name('client.store'); //simpan data

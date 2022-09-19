@@ -43,6 +43,13 @@ class StaffController extends Controller
             'title',
         ]));
     }
+    public function filter(Request $request)
+    {
+        $filter = $request->filter;
+        $identifier = $request->identifier;
+        $data = Staff::where($identifier, 'like', '%' . $filter . '%')->get();
+        return response()->json($data);
+    }
     public function store(Request $request)
     {
         // proses validasi form tambah karyawan

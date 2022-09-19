@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Models\Data\Client;
 use App\Models\Data\Staff;
+use App\Models\Transaction\WorkOrder;
 
 class DashboardController extends Controller
 {
@@ -34,40 +35,40 @@ class DashboardController extends Controller
             'UNKNOWN',
         ];
         $woBelum = [
-            2,
-            3,
-            4,
-            7,
-            8,
-            9,
-            10,
+            WorkOrder::where('tgl_work_order', now()->startOfWeek())->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->where('status', 'pending')->count(),
         ];
         $woProses = [
-            1,
-            5,
-            6,
-            1,
-            5,
-            6,
-            9,
+            WorkOrder::where('tgl_work_order', now()->startOfWeek())->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->where('status', 'proses')->count(),
         ];
         $woSelesai = [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
+            WorkOrder::where('tgl_work_order', now()->startOfWeek())->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->where('status', 'selesai')->count(),
         ];
         $woTotal = [
-            4,
-            10,
-            13,
-            12,
-            18,
-            21,
-            26,
+            WorkOrder::where('tgl_work_order', now()->startOfWeek())->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->count(),
+            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->count(),
         ];
         $days = [
             'Senin',

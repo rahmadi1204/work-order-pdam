@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="kategori_jabatan">Unit Petugas<code>*</code></label>
                                     <select name="kategori_jabatan" id="kategori_jabatan" class="form-control select2">
-                                        <option value="">-- Pilih Petugas --</option>
+                                        <option value="">-- Pilih Unit Petugas --</option>
                                         @forelse ($staffs as $item)
                                             <option value="{{ $item->kategori_jabatan }}"
                                                 {{ isset($data) && $data->responder == $item->kategori_jabatan ? 'selected' : '' }}

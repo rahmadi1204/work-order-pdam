@@ -17,13 +17,14 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->dateTime('tgl_work_order');
-            $table->string('type_work_order_id');
-            $table->string('type_document_id')->nullable();
+            $table->string('type_id');
+            $table->string('document_id')->nullable();
             $table->string('staff_id');
             $table->string('client_id')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('google_maps')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();

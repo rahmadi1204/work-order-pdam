@@ -33,6 +33,30 @@
     });
 </script>
 <script>
+    function getKoordinate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Failed to get location");
+            console.log('Failed to get location');
+        }
+    }
+
+    function showPosition(position) {
+        console.log(position);
+        $('#latitude').val(position.coords.latitude);
+        $('#longitude').val(position.coords.longitude);
+    }
+
+    function getGoogleMaps() {
+        let latitude = $('#latitude').val();
+        let longitude = $('#longitude').val();
+        let url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+        $('#google_maps').val(url);
+        window.open(url, '_blank');
+    }
+</script>
+<script>
     $(function() {
         $('#datepicker').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',

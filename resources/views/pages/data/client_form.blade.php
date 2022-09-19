@@ -235,22 +235,6 @@
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         })
     </script>
-    <script>
-        function getKoordinate() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                alert("Failed to get location");
-                console.log('Failed to get location');
-            }
-        }
-
-        function showPosition(position) {
-            console.log(position);
-            $('#latitude').val(position.coords.latitude);
-            $('#longitude').val(position.coords.longitude);
-        }
-    </script>
     {{-- create id pelanggan otomatis --}}
     <script>
         $('#area').change(function(e) {
