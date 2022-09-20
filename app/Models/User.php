@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,4 +42,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = IdGenerator::generate(['table' => 'users', 'field' => 'uuid', 'length' => 7, 'prefix' => 'USR-', 'reset_on_prefix_change' => true]);
+        });
+    }
+    public function staff()
+    {
+        return $this->hasOne(Staff::class, 'user_id', 'uuid');
+    }
 }

@@ -17,8 +17,37 @@ class WorkOrderController extends Controller
     public function index()
     {
         $title = 'Work Order';
+        $filter = 'all';
         return view('pages.transaction.work_order', compact([
             'title',
+            'filter',
+        ]));
+    }
+    public function permintaan()
+    {
+        $title = 'Work Order';
+        $filter = 'pending';
+        return view('pages.transaction.work_order', compact([
+            'title',
+            'filter',
+        ]));
+    }
+    public function respon()
+    {
+        $title = 'Work Order';
+        $filter = 'proses';
+        return view('pages.transaction.work_order', compact([
+            'title',
+            'filter',
+        ]));
+    }
+    public function realisasi()
+    {
+        $title = 'Work Order';
+        $filter = 'selesai';
+        return view('pages.transaction.work_order', compact([
+            'title',
+            'filter',
         ]));
     }
     public function query($request)

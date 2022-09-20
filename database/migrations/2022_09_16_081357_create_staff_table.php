@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('user_id')->nullable();
             $table->string('nama');
             $table->string('image')->nullable();
             $table->string('kode_jabatan')->unique();

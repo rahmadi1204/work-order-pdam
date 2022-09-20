@@ -23,8 +23,11 @@
                     <div class="row mb-2">
                         <div class="col-12">
                             <a href="#" class="btn btn-info refresh"><i class="fa fa-sync-alt"> Refresh</i></a>
-                            <a href="{{ route('work-order.create') }}" class="btn btn-primary"><i class="fa fa-plus"> Tambah
-                                    Data</i></a>
+                            @if ($filter == 'all')
+                                <a href="{{ route('work-order.create') }}" class="btn btn-primary"><i class="fa fa-plus">
+                                        Tambah
+                                        Data</i></a>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -72,10 +75,10 @@
                                 <label for="filter">Filter
                                 </label>
                                 <select name="status" id="filterActive" class="form-control">
-                                    <option value="all">Semua</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="proses">Proses</option>
-                                    <option value="selesai">Selesai</option>
+                                    <option value="all" {{ $filter == 'all' ? 'selected' : '' }}>Semua</option>
+                                    <option value="pending" {{ $filter == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="proses" {{ $filter == 'proses' ? 'selected' : '' }}>Proses</option>
+                                    <option value="selesai" {{ $filter == 'selesai' ? 'selected' : '' }}>Selesai</option>
                                 </select>
                             </div>
                         </div>
@@ -90,7 +93,7 @@
                                     </span>
                                 </div>
                                 <input type="text" name="date" class="form-control float-right" id="reservation"
-                                    value="{{ '2011-01-01 - ' .now()->endOfMonth()->format('Y-m-d') }}">
+                                    value="{{ '2022-01-01 - ' .now()->endOfMonth()->format('Y-m-d') }}">
                             </div>
                         </div>
                     </div>

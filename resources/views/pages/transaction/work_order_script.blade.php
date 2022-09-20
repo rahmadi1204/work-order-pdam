@@ -82,7 +82,10 @@
     $('#reservation').blur(function(e) {
         e.preventDefault();
         datatable();
-
+    });
+    $('#reservation').change(function(e) {
+        e.preventDefault();
+        datatable();
     });
     // hapus data
     function deleteConfirm(id, name) {

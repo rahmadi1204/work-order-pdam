@@ -88,9 +88,9 @@ Route::group(['middleware' => 'auth'], function () {
     // halaman transaksi Work order
     Route::controller(WorkOrderController::class)->group(function () {
         Route::get('/work-order', 'index')->name('work-order'); //view halaman
-        Route::get('/work-order/request', 'request')->name('work-order.request'); //view halaman permintaan
-        Route::get('/work-order/process', 'process')->name('work-order.process'); //view halaman proses
-        Route::get('/work-order/realization', 'realization')->name('work-order.realization'); //view halaman realisasi
+        Route::get('/work-order/request', 'permintaan')->name('work-order.request'); //view halaman permintaan
+        Route::get('/work-order/response', 'respon')->name('work-order.process'); //view halaman proses
+        Route::get('/work-order/realization', 'realisasi')->name('work-order.realization'); //view halaman realisasi
         Route::get('/work-order/get', 'get')->name('work-order.get'); //ambil data
         Route::get('/work-order/create', 'create')->name('work-order.create'); //view form tambah
         Route::post('/work-order/store', 'store')->name('work-order.store'); //simpan data

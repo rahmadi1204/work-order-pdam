@@ -1,5 +1,4 @@
 <script>
-    // fungsi untuk mengambil data dari database
     function datatable() {
         $('#datatable').DataTable().destroy();
         $('#datatable').DataTable({
@@ -8,13 +7,10 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('client.get') }}",
+                url: "{{ route('user.get') }}",
                 data: function(d) {
-                    d.no_sambungan = $('input[name=no_sambungan]').val();
+                    d.role = $('input[name=role]').val();
                     d.name = $('input[name=name]').val();
-                    d.alamat = $('input[name=alamat]').val();
-                    d.status = $('#filterActive').val();
-                    d.date = $('input[name=date]').val();
                 }
             },
             columns: [{
@@ -24,24 +20,16 @@
                     searchable: false
                 },
                 {
-                    data: 'tgl_masuk',
-                    name: 'tgl_masuk'
+                    data: 'role',
+                    name: 'role'
                 },
                 {
-                    data: 'no_sambungan',
-                    name: 'no_sambungan'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
-                    data: 'nama',
-                    name: 'nama'
-                },
-                {
-                    data: 'alamat',
-                    name: 'alamat'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
+                    data: 'email',
+                    name: 'email'
                 },
                 {
                     data: 'action',
@@ -54,40 +42,21 @@
         });
     }
     datatable();
-    // tombol cari
     $('.search').click(function(e) {
         e.preventDefault();
         datatable();
     });
-    // tombol refresh data
     $('.refresh').click(function(e) {
         e.preventDefault();
-        $('input[name=no_sambungan]').val('');
+        $('input[name=role]').val('');
         $('input[name=name]').val('');
-        $('input[name=alamat]').val('');
-        $('input[name=status]').val('all');
-        $('input[name=date]').val('');
         datatable();
     });
-    // mengosongkan field pencarian lain lalu cari data
-    $('#filterActive').change(function(e) {
-        e.preventDefault();
-        $('input[name=no_sambungan]').val('');
-        $('input[name=name]').val('');
-        $('input[name=alamat]').val('');
-        $('input[name=date]').val('');
-        datatable();
-    });
-    // filter tanggal
     $('#reservation').blur(function(e) {
         e.preventDefault();
         datatable();
     });
-    $('#reservation').change(function(e) {
-        e.preventDefault();
-        datatable();
-    });
-    // hapus data
+
     function deleteConfirm(id, name) {
         console.log(id, name);
         Swal.fire({
@@ -101,7 +70,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ url('clients') }}" + '/delete/' + id,
+                    url: "{{ url('admin/users') }}" + '/delete/' + id,
                     type: "POST",
                     data: {
                         '_token': "{{ csrf_token() }}"

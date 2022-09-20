@@ -35,52 +35,56 @@ class DashboardController extends Controller
             'UNKNOWN',
         ];
         $woBelum = [
-            WorkOrder::where('tgl_work_order', now()->startOfWeek())->where('status', 'pending')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->where('status', 'pending')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->where('status', 'pending')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->where('status', 'pending')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->where('status', 'pending')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->where('status', 'pending')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->where('status', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(6)->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(5)->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(4)->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(3)->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(2)->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(1)->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->format('Y-m-d') . '%')->where('status_work_order', 'pending')->count(),
         ];
         $woProses = [
-            WorkOrder::where('tgl_work_order', now()->startOfWeek())->where('status', 'proses')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->where('status', 'proses')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->where('status', 'proses')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->where('status', 'proses')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->where('status', 'proses')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->where('status', 'proses')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->where('status', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(6)->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(5)->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(4)->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(3)->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(2)->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(1)->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->format('Y-m-d') . '%')->where('status_work_order', 'proses')->count(),
         ];
         $woSelesai = [
-            WorkOrder::where('tgl_work_order', now()->startOfWeek())->where('status', 'selesai')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->where('status', 'selesai')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->where('status', 'selesai')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->where('status', 'selesai')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->where('status', 'selesai')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->where('status', 'selesai')->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->where('status', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(6)->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(5)->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(4)->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(3)->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(2)->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(1)->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->format('Y-m-d') . '%')->where('status_work_order', 'selesai')->count(),
         ];
         $woTotal = [
-            WorkOrder::where('tgl_work_order', now()->startOfWeek())->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(1))->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(2))->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(3))->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(4))->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(5))->count(),
-            WorkOrder::where('tgl_work_order', now()->startOfWeek()->addDays(6))->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(6)->format('Y-m-d') . '%')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(5)->format('Y-m-d') . '%')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(4)->format('Y-m-d') . '%')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(3)->format('Y-m-d') . '%')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(2)->format('Y-m-d') . '%')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->subDay(1)->format('Y-m-d') . '%')->count(),
+            WorkOrder::where('tgl_work_order', 'like', now()->format('Y-m-d') . '%')->count(),
         ];
         $days = [
-            'Senin',
-            'Selasa',
-            'Rabu',
-            'Kamis',
-            'Jumat',
-            'Sabtu',
-            'Minggu',
+            now()->subDay(6)->format('d M'),
+            now()->subDay(5)->format('d M'),
+            now()->subDay(4)->format('d M'),
+            now()->subDay(3)->format('d M'),
+            now()->subDay(2)->format('d M'),
+            now()->subDay(1)->format('d M'),
+            now()->format('d M'),
         ];
-        $newWorkOrder = WorkOrder::where('status', 'pending')->count();
-        $processWorkOrderPercent = WorkOrder::where('status', 'proses')->count() / WorkOrder::count() * 100;
+        $newWorkOrder = WorkOrder::where('status_work_order', 'pending')->count();
+        $dividing = WorkOrder::count();
+        if ($dividing == 0) {
+            $dividing = 1;
+        }
+        $processWorkOrderPercent = WorkOrder::where('status_work_order', 'proses')->count() / $dividing * 100;
         return view('pages.dashboard', compact([
             'title',
             'countClients',

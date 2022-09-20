@@ -57,14 +57,16 @@
                                     <label for="staff_id">Petugas<code>*</code></label>
                                     <select name="staff_id" id="staff_id" class="form-control select2">
                                         <option value="">-- Pilih Petugas --</option>
-                                        @forelse ($staff as $item)
-                                            <option value="{{ $item->kode_jabatan }}"
-                                                {{ isset($data) && $data->staff_id == $item->kode_jabatan ? 'selected' : '' }}
-                                                {{ old('staff_id') == $item->kode_jabatan ? 'selected' : '' }}>
-                                                {{ $item->nama }} <sub>{{ $item->golongan }}</sub></option>
-                                        @empty
-                                            <option value="">Tidak ada data</option>
-                                        @endforelse
+                                        @isset($data)
+                                            @forelse ($staff as $item)
+                                                <option value="{{ $item->kode_jabatan }}"
+                                                    {{ isset($data) && $data->staff_id == $item->kode_jabatan ? 'selected' : '' }}
+                                                    {{ old('staff_id') == $item->kode_jabatan ? 'selected' : '' }}>
+                                                    {{ $item->nama }} <sub>{{ $item->golongan }}</sub></option>
+                                            @empty
+                                                <option value="">Tidak ada data</option>
+                                            @endforelse
+                                        @endisset
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -155,7 +157,7 @@
             let keterangan = $(this).find(':selected').data('keterangan');
             let identifier = 'kategori_jabatan';
             $('#kategori_jabatan').val(filter);
-            $('#keterangan').val(keterangan);
+            $('#deskripsi').val(keterangan);
             $.ajax({
                 type: "GET",
                 url: "{{ route('staff.filter') }}",
