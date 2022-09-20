@@ -198,7 +198,7 @@ class AreaController extends Controller
         // proses hapus data
         DB::beginTransaction();
         try {
-            $delete = Area::where('uuid', $id)->delete();
+            $data = Area::where('uuid', $id)->delete();
             DB::commit();
             return redirect()->back()->with('success', 'Data berhasil dihapus');
         } catch (\Throwable$th) {

@@ -282,12 +282,12 @@ class ClientController extends Controller
         // proses hapus data pelanggan
         DB::beginTransaction();
         try {
-            $staff = Client::findOrFail($id);
-            if ($staff->image != null) {
-                $oldImage = $staff->image;
+            $data = Client::findOrFail($id);
+            if ($data->image != null) {
+                $oldImage = $data->image;
                 $this->deleteFile($oldImage);
             }
-            $staff->delete();
+            $data->delete();
             DB::commit();
             return redirect()->route('staff')->with('success', 'Data pelanggan berhasil dihapus');
         } catch (\Throwable$th) {

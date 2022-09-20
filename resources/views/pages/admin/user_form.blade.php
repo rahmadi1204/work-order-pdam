@@ -2,7 +2,7 @@
 @section('content')
     <section class="content">
         <div class="container">
-            <form action="{{ isset($data) ? route('user.update', $data->uuid) : route('user.store') }}" method="post">
+            <form action="{{ isset($data) ? route('user.update', $data->id) : route('user.store') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -24,8 +24,8 @@
                                         <option value="">-- Pilih Karyawan --</option>
                                         @forelse ($staff as $item)
                                             <option value="{{ $item->uuid }}" data-name="{{ $item->nama }}"
-                                                {{ isset($data) && $data->staff->staff_id == $item->uuid ? 'selected' : '' }}
-                                                {{ old('staff_id') == $item->uuid ? 'selected' : '' }}>
+                                                {{ isset($data) && $data->uuid == $item->user_id ? 'selected' : '' }}
+                                                {{ old('staff_id') == $item->user_id ? 'selected' : '' }}>
                                                 {{ $item->nama }}</option>
                                         @empty
                                             <option value="">Tidak ada data</option>
@@ -48,13 +48,13 @@
                                         value="{{ $data->email ?? old('email') }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">Password<code>*</code></label>
+                                    <label for="password">Password</label>
                                     <input type="password" name="password" id="password" class="form-control"
-                                        value="{{ $data->password ?? old('password') }}" required>
+                                        value="{{ old('password') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="role">Role<code>*</code></label>
-                                    <select name="role" id="role" class="form-control select2">
+                                    <select name="role" id="role" class="form-control select2" required>
                                         <option value="">-- Pilih Role --</option>
                                         @forelse ($roles as $item)
                                             <option value="{{ $item->role }}"

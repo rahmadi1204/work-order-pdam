@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Types;
 
 use App\Http\Controllers\Controller;
 use App\Models\Data\Staff;
+use App\Models\Transaction\WorkOrder;
 use App\Models\Types\TypeWorkOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -128,7 +129,7 @@ class TypeWorkOrderController extends Controller
         DB::beginTransaction();
         try {
             // simpan data
-            $data = TypeWorkOrder::where('uuid', $id)->firstOrFail();
+            $data = TypeWorkOrder::findOrFail($id);
             $data->no_work_order = $request->no_work_order;
             $data->kode_work_order = $request->kode_work_order;
             $data->jenis_work_order = $request->jenis_work_order;
@@ -147,6 +148,13 @@ class TypeWorkOrderController extends Controller
     {
         try {
             $data = TypeWorkOrder::find($id);
+            $check = WorkOrder::where('kode_work_order', $data->kode_work_order)->first();
+            if ($check) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Data tidak dapat dihapus karena sudah digunakan',
+                ]);
+            }
             $data->delete();
             return response()->json([
                 'status' => 'success',

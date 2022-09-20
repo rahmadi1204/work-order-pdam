@@ -20,16 +20,20 @@
                     searchable: false
                 },
                 {
-                    data: 'role',
-                    name: 'role'
-                },
-                {
                     data: 'name',
                     name: 'name'
                 },
                 {
+                    data: 'role',
+                    name: 'role'
+                },
+                {
                     data: 'email',
                     name: 'email'
+                },
+                {
+                    data: 'last_seen',
+                    name: 'last_seen'
                 },
                 {
                     data: 'action',
@@ -37,7 +41,7 @@
                 },
             ],
             order: [
-                [1, 'desc']
+                [1, 'asc']
             ]
         });
     }
@@ -70,7 +74,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ url('admin/users') }}" + '/delete/' + id,
+                    url: "{{ url('/admin/users') }}" + '/delete/' + id,
                     type: "POST",
                     data: {
                         '_token': "{{ csrf_token() }}"

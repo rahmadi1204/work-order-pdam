@@ -2,7 +2,7 @@
 @section('content')
     <section class="content">
         <div class="container">
-            <form action="{{ isset($data) ? route('type.work-order.update', $data->uuid) : route('type.work-order.store') }}"
+            <form action="{{ isset($data) ? route('type.work-order.update', $data->id) : route('type.work-order.store') }}"
                 method="post">
                 @csrf
                 <div class="row">

@@ -158,12 +158,12 @@ class StaffController extends Controller
         // proses hapus data karyawan
         DB::beginTransaction();
         try {
-            $staff = Staff::findOrFail($id);
-            if ($staff->image != null) {
-                $oldImage = $staff->image;
+            $data = Staff::findOrFail($id);
+            if ($data->image != null) {
+                $oldImage = $data->image;
                 $this->deleteFile($oldImage);
             }
-            $staff->delete();
+            $data->delete();
             DB::commit();
             return redirect()->route('staff')->with('success', 'Data karyawan berhasil dihapus');
         } catch (\Throwable$th) {

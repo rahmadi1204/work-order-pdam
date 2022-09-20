@@ -64,13 +64,16 @@
                                 No
                             </th>
                             <th style="width: 30%">
-                                Role
-                            </th>
-                            <th>
                                 Nama
                             </th>
                             <th>
+                                Role
+                            </th>
+                            <th>
                                 Email
+                            </th>
+                            <th>
+                                Last Seen
                             </th>
                             <th style="width: 20%">
                             </th>

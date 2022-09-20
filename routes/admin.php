@@ -20,6 +20,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/users/store', 'store')->name('user.store');
         Route::get('/users/edit/{id}', 'edit')->name('user.edit');
         Route::post('/users/update/{id}', 'update')->name('user.update');
-        Route::get('/users/delete/{id}', 'delete')->name('user.delete');
+        Route::post('/users/delete/{id}', 'destroy')->name('user.delete');
     });
 });
