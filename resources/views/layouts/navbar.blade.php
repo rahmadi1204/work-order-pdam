@@ -67,7 +67,6 @@
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 <li><a href="{{ url('admin/notification') }}" class="dropdown-item">Notification</a>
                                 </li>
-                                <li><a href="{{ url('admin/backups') }}" class="dropdown-item">Backup Data</a></li>
                                 <li><a href="{{ url('admin/users') }}" class="dropdown-item">Data Admin</a></li>
                                 <li><a href="{{ url('admin/imports') }}" class="dropdown-item">Import Data</a></li>
                             </ul>
