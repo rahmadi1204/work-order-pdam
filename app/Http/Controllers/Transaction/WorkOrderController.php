@@ -16,35 +16,11 @@ class WorkOrderController extends Controller
 {
     public function index()
     {
+        // if (auth()->user()->role != 'admin' || auth()->user()->role != 'super admin') {
+        //     return redirect()->back();
+        // }
         $title = 'Work Order';
         $filter = 'all';
-        return view('pages.transaction.work_order', compact([
-            'title',
-            'filter',
-        ]));
-    }
-    public function permintaan()
-    {
-        $title = 'Work Order';
-        $filter = 'pending';
-        return view('pages.transaction.work_order', compact([
-            'title',
-            'filter',
-        ]));
-    }
-    public function respon()
-    {
-        $title = 'Work Order';
-        $filter = 'proses';
-        return view('pages.transaction.work_order', compact([
-            'title',
-            'filter',
-        ]));
-    }
-    public function realisasi()
-    {
-        $title = 'Work Order';
-        $filter = 'selesai';
         return view('pages.transaction.work_order', compact([
             'title',
             'filter',
@@ -122,16 +98,40 @@ class WorkOrderController extends Controller
             })
             ->addColumn('action', function ($data) {
                 $action = '<div class="d-flex justify-content-center">';
-                $action .= '<a href="' . url('work-order/edit', $data->uuid) . '" class="btn btn-info mx-1"><i class="fas fa-pencil-alt"></i>Edit</a>';
-                $action .= '<a href="#" onclick="deleteConfirm(' . $data->id . ',`' . $data->nama . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
+                if ($data->status_work_order == 'pending') {
+                    $action .= '<a href="' . url('work-order/edit', $data->uuid) . '" class="btn btn-warning mx-1"><i class="fas fa-pencil-alt"></i>Edit</a>';
+                    $action .= '<a href="#" onclick="deleteConfirm(' . $data->id . ',`' . $data->nama . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
+                } else if ($data->status_work_order == 'proses') {
+                    $action .= '<a href="' . url('work-order/view', $data->uuid) . '" class="btn btn-info mx-1"><i class="fas fa-eye"></i>View</a>';
+                    $action .= '<a href="#" class="btn btn-secondary disabled mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
+                } else {
+                    $action .= '<a href="' . url('work-order/view', $data->uuid) . '" class="btn btn-success mx-1"><i class="fas fa-eye"></i>View</a>';
+                    $action .= '<a href="#" class="btn btn-secondary disabled mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
+                }
                 $action .= '</div>';
                 return $action;
             })
             ->rawColumns(['checkbox', 'type_id', 'staff_id', 'status_work_order', 'action'])
             ->make(true);
     }
+    public function view($id)
+    {
+        $title = 'Work Order';
+        $data = WorkOrder::with([
+            'client',
+            'staff',
+            'type',
+        ])->where('uuid', $id)->first();
+        return view('pages.transaction.work_order_view', compact([
+            'title',
+            'data',
+        ]));
+    }
     public function create()
     {
+        // if (auth()->user()->role != 'admin' || auth()->user()->role != 'super admin') {
+        //     return redirect()->back();
+        // }
         $title = 'Tambah Data Work Order';
         $types = TypeWorkOrder::all();
         $staff = Staff::where('kategori_jabatan', '!=', 'DIREKSI')->get();
@@ -166,8 +166,7 @@ class WorkOrderController extends Controller
             $workOrder->latitude = $request->latitude;
             $workOrder->longitude = $request->longitude;
             $workOrder->google_maps = $request->google_maps;
-            $workOrder->deskripsi = $request->deskripsi;
-            $workOrder->keterangan = $request->keterangan;
+            $workOrder->keterangan_work_order = $request->keterangan_work_order;
             $workOrder->save();
             DB::commit();
             return redirect()->route('work-order')->with('success', 'Data Work Order berhasil ditambahkan');
@@ -178,6 +177,9 @@ class WorkOrderController extends Controller
     }
     public function edit($id)
     {
+        // if (auth()->user()->role != 'admin' || auth()->user()->role != 'super admin') {
+        //     return redirect()->back();
+        // }
         $title = 'Edit Data Work Order';
         $data = WorkOrder::where('uuid', $id)->first();
         $types = TypeWorkOrder::all();
@@ -217,8 +219,7 @@ class WorkOrderController extends Controller
             $workOrder->latitude = $request->latitude;
             $workOrder->longitude = $request->longitude;
             $workOrder->google_maps = $request->google_maps;
-            $workOrder->deskripsi = $request->deskripsi;
-            $workOrder->keterangan = $request->keterangan;
+            $workOrder->keterangan_work_order = $request->keterangan_work_order;
             $workOrder->save();
             DB::commit();
             return redirect()->route('work-order')->with('success', 'Data Work Order berhasil diubah');

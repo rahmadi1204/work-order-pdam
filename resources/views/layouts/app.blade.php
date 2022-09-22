@@ -41,6 +41,8 @@
     <link rel="stylesheet"
         href="{{ asset('/assets') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('/assets') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="{{ asset('/assets') }}/plugins/ekko-lightbox/ekko-lightbox.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('/assets') }}/dist/css/adminlte.min.css">
     <link rel="shortcut icon" href="{{ asset('/images/logo-pdam.png') }}" type="image/x-icon">
@@ -131,22 +133,29 @@
     <script src="{{ asset('/assets') }}/plugins/bs-stepper/js/bs-stepper.min.js"></script>
     <!-- dropzonejs -->
     <script src="{{ asset('/assets') }}/plugins/dropzone/min/dropzone.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="{{ asset('/assets') }}/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- DataTables  & Plugins -->
-    <script src="{{ asset('/assets') }}//plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/jszip/jszip.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="{{ asset('/assets') }}//plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/jszip/jszip.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('/assets') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Ekko Lightbox -->
+    <script src="{{ asset('/assets') }}/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    <!-- Filterizr-->
+    {{-- <script src="{{ asset('/assets') }}/plugins/filterizr/jquery.filterizr.min.js"></script> --}}
     <!-- AdminLTE App -->
     <script src="{{ asset('/assets') }}/dist/js/adminlte.min.js"></script>
     @include('scripts.global')
+    @include('scripts.image-validation')
     @yield('scripts')
 </body>
 

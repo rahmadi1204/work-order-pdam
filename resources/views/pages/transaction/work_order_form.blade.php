@@ -42,7 +42,7 @@
                                                 data-responder="{{ $item->responder }}"
                                                 data-keterangan="{{ $item->keterangan }}"
                                                 {{ isset($data) && $data->kode_work_order == $item->type_id ? 'selected' : '' }}>
-                                                {{ $item->jenis_work_order }}</option>
+                                                {{ $item->jenis_work_order . ' ' . $item->keterangan }}</option>
                                         @empty
                                             <option value="">Tidak ada data</option>
                                         @endforelse
@@ -69,10 +69,10 @@
                                         @endisset
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="deskripsi">Deskripsi</label>
                                     <textarea name="deskripsi" id="deskripsi" class="form-control" rows="3" placeholder="Enter ...">{{ $data->deskripsi ?? old('deskripsi') }}</textarea>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -131,8 +131,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Keterangan">Keterangan</label>
-                                    <textarea name="keterangan" id="keterangan" class="form-control" rows="3" placeholder="Enter ...">{{ $data->keterangan ?? old('keterangan') }}</textarea>
+                                    <label for="Keterangan_work_order">Keterangan</label>
+                                    <textarea name="keterangan_work_order" id="keterangan_work_order" class="form-control" rows="3"
+                                        placeholder="Enter ...">{{ $data->keterangan_work_order ?? old('keterangan_work_order') }}</textarea>
                                 </div>
                             </div>
                         </div>

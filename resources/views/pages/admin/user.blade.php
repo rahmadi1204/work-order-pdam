@@ -67,6 +67,9 @@
                                 Nama
                             </th>
                             <th>
+                                Username
+                            </th>
+                            <th>
                                 Role
                             </th>
                             <th>

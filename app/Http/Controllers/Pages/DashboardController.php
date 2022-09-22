@@ -80,11 +80,15 @@ class DashboardController extends Controller
             now()->format('d M'),
         ];
         $newWorkOrder = WorkOrder::where('status_work_order', 'pending')->count();
+        $processWorkOrder = WorkOrder::where('status_work_order', 'proses')->count();
+        $doneWorkOrder = WorkOrder::where('status_work_order', 'selesai')->count();
+        $totalWorkOrder = WorkOrder::count();
         $dividing = WorkOrder::count();
         if ($dividing == 0) {
             $dividing = 1;
         }
         $processWorkOrderPercent = WorkOrder::where('status_work_order', 'proses')->count() / $dividing * 100;
+        $processWorkOrderPercent = round($processWorkOrderPercent, 2);
         return view('pages.dashboard', compact([
             'title',
             'countClients',
@@ -97,6 +101,9 @@ class DashboardController extends Controller
             'woSelesai',
             'woTotal',
             'newWorkOrder',
+            'processWorkOrder',
+            'doneWorkOrder',
+            'totalWorkOrder',
             'processWorkOrderPercent',
         ]));
     }

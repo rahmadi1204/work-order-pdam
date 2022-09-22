@@ -144,6 +144,7 @@ class UserController extends Controller
             $user->save();
             DB::commit();
             if ($request->staff_id != null) {
+                $staff = Staff::where('user_id', $user->uuid)->update(['user_id' => null]);
                 $staff = Staff::where('uuid', $request->staff_id)->firstOrFail();
                 $staff->user_id = $user->uuid;
                 $staff->save();

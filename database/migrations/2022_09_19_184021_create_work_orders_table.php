@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->dateTime('tgl_work_order');
+            $table->dateTime('tgl_work_order_response')->nullable();
+            $table->dateTime('tgl_work_order_done')->nullable();
             $table->string('type_id');
             $table->string('document_id')->nullable();
             $table->string('staff_id');
@@ -24,9 +26,13 @@ return new class extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('google_maps')->nullable();
-            $table->string('deskripsi')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->string('keterangan_work_order')->nullable();
+            $table->string('keterangan_petugas')->nullable();
+            $table->string('keterangan_selesai')->nullable();
             $table->string('status_work_order')->default('pending');
+            $table->string('image')->nullable();
+            $table->string('created_by');
+            $table->string('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

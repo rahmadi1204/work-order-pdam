@@ -58,7 +58,39 @@
 </script>
 <script>
     $(function() {
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+    })
+</script>
+<script>
+    $(function() {
+        bsCustomFileInput.init();
+
         $('#datepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            icons: {
+                time: "far fa-clock",
+                date: "far fa-calendar",
+                up: "fas fa-arrow-up",
+                down: "fas fa-arrow-down"
+            }
+
+        })
+        $('#datepicker1').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            icons: {
+                time: "far fa-clock",
+                date: "far fa-calendar",
+                up: "fas fa-arrow-up",
+                down: "fas fa-arrow-down"
+            }
+
+        })
+        $('#datepicker2').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
             icons: {
                 time: "far fa-clock",

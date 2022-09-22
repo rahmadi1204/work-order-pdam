@@ -8,7 +8,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('work-order.get') }}",
+                url: "{{ url()->current() }}" + '/get',
                 data: function(d) {
                     d.no_sambungan = $('input[name=no_sambungan]').val();
                     d.name = $('input[name=name]').val();
@@ -53,7 +53,12 @@
             ]
         });
     }
-    datatable();
+    $('input[name=date]').val(
+        '{{ now()->startOfYear()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}');
+    setTimeout(() => {
+        datatable();
+    }, 1000);
+    // datatable();
     // tombol cari
     $('.search').click(function(e) {
         e.preventDefault();
@@ -65,7 +70,8 @@
         $('input[name=type_id]').val('');
         $('input[name=name]').val('');
         $('input[name=client]').val('');
-        $('input[name=date]').val('');
+        $('input[name=date]').val(
+            '{{ now()->startOfYear()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}');
         $('input[name=status]').val('all');
         datatable();
     });

@@ -24,6 +24,10 @@
                     name: 'name'
                 },
                 {
+                    data: 'username',
+                    name: 'username'
+                },
+                {
                     data: 'role',
                     name: 'role'
                 },

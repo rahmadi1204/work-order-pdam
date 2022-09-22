@@ -5,6 +5,9 @@ use App\Http\Controllers\Data\ClientController;
 use App\Http\Controllers\Data\StaffController;
 use App\Http\Controllers\Pages\DashboardController;
 use App\Http\Controllers\Transaction\WorkOrderController;
+use App\Http\Controllers\Transaction\WorkOrderRealizationController;
+use App\Http\Controllers\Transaction\WorkOrderRequestController;
+use App\Http\Controllers\Transaction\WorkOrderResponseController;
 use App\Http\Controllers\Types\TypeDocumentController;
 use App\Http\Controllers\Types\TypeWorkOrderController;
 use Illuminate\Support\Facades\Route;
@@ -88,15 +91,37 @@ Route::group(['middleware' => 'auth'], function () {
     // halaman transaksi Work order
     Route::controller(WorkOrderController::class)->group(function () {
         Route::get('/work-order', 'index')->name('work-order'); //view halaman
-        Route::get('/work-order/request', 'permintaan')->name('work-order.request'); //view halaman permintaan
-        Route::get('/work-order/response', 'respon')->name('work-order.process'); //view halaman proses
-        Route::get('/work-order/realization', 'realisasi')->name('work-order.realization'); //view halaman realisasi
         Route::get('/work-order/get', 'get')->name('work-order.get'); //ambil data
+        Route::get('/work-order/view/{id}', 'view')->name('work-order.view'); //lihat data
         Route::get('/work-order/create', 'create')->name('work-order.create'); //view form tambah
         Route::post('/work-order/store', 'store')->name('work-order.store'); //simpan data
         Route::get('/work-order/edit/{id}', 'edit')->name('work-order.edit'); //view form edit
         Route::post('/work-order/update/{id}', 'update')->name('work-order.update'); //update data
         Route::post('/work-order/delete/{id}', 'destroy')->name('work-order.delete'); //hapus data
+    });
+    // halaman permintaan Work order
+    Route::controller(WorkOrderRequestController::class)->group(function () {
+        Route::get('/work-order/request', 'index')->name('work-order.request'); //view halaman permintaan
+        Route::get('/work-order/request/get', 'get')->name('work-order.request.get'); //ambil data
+        Route::get('/work-order/request/edit/{id}', 'edit')->name('work-order.request.edit'); //view form pengerjaan
+        Route::post('/work-order/request/update/{id}', 'update')->name('work-order.request.update'); //update data
+        Route::post('/work-order/request/delete/{id}', 'destroy')->name('work-order.request.delete'); //hapus data
+    });
+    // halaman respon Work order
+    Route::controller(WorkOrderResponseController::class)->group(function () {
+        Route::get('/work-order/response', 'index')->name('work-order.response'); //view halaman permintaan
+        Route::get('/work-order/response/get', 'get')->name('work-order.response.get'); //ambil data
+        Route::get('/work-order/response/edit/{id}', 'edit')->name('work-order.response.edit'); //view form penyelesaian
+        Route::post('/work-order/response/update/{id}', 'update')->name('work-order.response.update'); //update data
+        Route::post('/work-order/response/delete/{id}', 'destroy')->name('work-order.response.delete'); //hapus data
+    });
+    // halaman realisasi Work order
+    Route::controller(WorkOrderRealizationController::class)->group(function () {
+        Route::get('/work-order/realization', 'index')->name('work-order.realization'); //view halaman permintaan
+        Route::get('/work-order/realization/get', 'get')->name('work-order.realization.get'); //ambil data
+        Route::get('/work-order/realization/edit/{id}', 'edit')->name('work-order.realization.edit'); //view form penyelesaian
+        Route::post('/work-order/realization/update/{id}', 'update')->name('work-order.realization.update'); //update data
+        Route::post('/work-order/realization/delete/{id}', 'destroy')->name('work-order.realization.delete'); //hapus data
     });
 
 });

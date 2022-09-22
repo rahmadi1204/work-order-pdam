@@ -16,6 +16,7 @@ class WorkOrder extends Model
         parent::boot();
         self::creating(function ($model) {
             $model->uuid = IdGenerator::generate(['table' => 'work_orders', 'field' => 'uuid', 'length' => 12, 'prefix' => 'WO-', 'reset_on_prefix_change' => true]);
+            $model->created_by = auth()->user()->name;
         });
     }
     public function staff()

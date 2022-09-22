@@ -70,15 +70,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+
+                        <div class="col-md-3 @if ($filter != 'all') d-none @endif">
                             <div class="form-group">
                                 <label for="filter">Filter
                                 </label>
                                 <select name="status" id="filterActive" class="form-control">
                                     <option value="all" {{ $filter == 'all' ? 'selected' : '' }}>Semua</option>
-                                    <option value="pending" {{ $filter == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="pending" {{ $filter == 'pending' ? 'selected' : '' }}>Pending
+                                    </option>
                                     <option value="proses" {{ $filter == 'proses' ? 'selected' : '' }}>Proses</option>
-                                    <option value="selesai" {{ $filter == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                                    <option value="selesai" {{ $filter == 'selesai' ? 'selected' : '' }}>Selesai
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -92,8 +95,7 @@
                                         <i class="far fa-calendar-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="date" class="form-control float-right" id="reservation"
-                                    value="{{ '2022-01-01 - ' .now()->endOfMonth()->format('Y-m-d') }}">
+                                <input type="text" name="date" class="form-control float-right" id="reservation">
                             </div>
                         </div>
                     </div>

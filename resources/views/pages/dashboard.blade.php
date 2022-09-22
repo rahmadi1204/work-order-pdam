@@ -24,7 +24,7 @@
                         <div class="inner">
                             <h3>{{ $processWorkOrderPercent ?? 0 }}<sup style="font-size: 20px">%</sup></h3>
 
-                            <p>Selesai Dikerjakan</p>
+                            <p>dari {{ $totalWorkOrder }} permintaan dikerjakan</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
