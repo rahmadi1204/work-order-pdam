@@ -77,10 +77,6 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                        <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $data->type->jenis_work_order }}
-                        </h3>
-                        <p class="text-muted">{{ $data->type->keterangan }}</p>
-                        <br>
                         <ul class="list-unstyled">
                             @if ($data->google_maps != null)
                                 <li>

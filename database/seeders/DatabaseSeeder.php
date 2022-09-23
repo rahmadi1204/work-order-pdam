@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserSeeder::class,
+            WhatsappSeeder::class,
             // AreaSeeder::class,
             // StaffCategorySeeder::class,
             // StaffSeeder::class,

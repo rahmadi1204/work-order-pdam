@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WhatsappController;
 use App\Http\Controllers\ImportController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/users/edit/{id}', 'edit')->name('user.edit');
         Route::post('/users/update/{id}', 'update')->name('user.update');
         Route::post('/users/delete/{id}', 'destroy')->name('user.delete');
+    });
+    Route::controller(WhatsappController::class)->group(function () {
+        Route::get('/whatsapps', 'index')->name('whatsapp');
+        Route::post('/whatsapps/update/{id}', 'update')->name('whatsapp.update');
     });
 });

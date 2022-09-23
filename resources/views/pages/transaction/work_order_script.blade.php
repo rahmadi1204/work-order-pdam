@@ -40,6 +40,10 @@
                     name: 'client.nama'
                 },
                 {
+                    data: 'keterangan_work_order',
+                    name: 'keterangan_work_order'
+                },
+                {
                     data: 'status_work_order',
                     name: 'status_work_order'
                 },
@@ -53,12 +57,7 @@
             ]
         });
     }
-    $('input[name=date]').val(
-        '{{ now()->startOfYear()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}');
-    setTimeout(() => {
-        datatable();
-    }, 1000);
-    // datatable();
+    datatable();
     // tombol cari
     $('.search').click(function(e) {
         e.preventDefault();
@@ -71,7 +70,7 @@
         $('input[name=name]').val('');
         $('input[name=client]').val('');
         $('input[name=date]').val(
-            '{{ now()->startOfYear()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}');
+            '{{ now()->startOfMonth()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}');
         $('input[name=status]').val('all');
         datatable();
     });
@@ -125,6 +124,45 @@
                         Swal.fire(
                             'Gagal!',
                             'Data gagal dihapus.',
+                            'error'
+                        )
+                    }
+                });
+            }
+        })
+    }
+    // cancel data
+    function cancelConfirm(id, kode) {
+        console.log(id, kode);
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Membatalkan data " + kode + " ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ url('work-order') }}" + '/cancel/' + id,
+                    type: "POST",
+                    data: {
+                        '_token': "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        Swal.fire(
+                            'Dibatalkan!',
+                            'Data berhasil dibatalkan.',
+                            'success'
+                        )
+                        datatable();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        Swal.fire(
+                            'Gagal!',
+                            'Data gagal dibatalkan.<br>' + data.message,
                             'error'
                         )
                     }

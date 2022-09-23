@@ -41,8 +41,8 @@ class WorkOrderRealizationController extends Controller
         if ($request->client != null) {
             $query->whereRelation('client', 'nama', 'like', '%' . $request->client . '%');
         }
-        if ($request->status != 'all') {
-            $query->where('status_work_order', $request->status);
+        if ($request->status != null) {
+            $query->whereIn('status_work_order', $request->status);
         }
         if ($request->date != null) {
             $start_date = substr($request->date, 0, 10);
@@ -95,7 +95,11 @@ class WorkOrderRealizationController extends Controller
             ->addColumn('action', function ($data) {
                 $action = '<div class="d-flex justify-content-center">';
                 $action .= '<a href="' . url('work-order/view', $data->uuid) . '" class="btn btn-success mx-1"><i class="fas fa-eye"></i>View</a>';
-                $action .= '<a href="#" onclick="deleteConfirm(' . $data->id . ',`' . $data->nama . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Batalkan</a>';
+                if ($data->status_work_order == 'cancel') {
+                    $action .= '<a href="#" class="btn btn-secondary mx-1"><i class="fas fa-trash-alt"></i>Batalkan</a>';
+                } else {
+                    $action .= '<a href="#" onclick="cancelConfirm(' . $data->id . ',`' . $data->type->jenis_work_order . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Batalkan</a>';
+                }
                 $action .= '</div>';
                 return $action;
             })

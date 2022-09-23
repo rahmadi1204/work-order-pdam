@@ -98,6 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/work-order/edit/{id}', 'edit')->name('work-order.edit'); //view form edit
         Route::post('/work-order/update/{id}', 'update')->name('work-order.update'); //update data
         Route::post('/work-order/delete/{id}', 'destroy')->name('work-order.delete'); //hapus data
+        Route::post('/work-order/cancel/{id}', 'cancel')->name('work-order.cancel'); //hapus data
     });
     // halaman permintaan Work order
     Route::controller(WorkOrderRequestController::class)->group(function () {
@@ -105,7 +106,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/work-order/request/get', 'get')->name('work-order.request.get'); //ambil data
         Route::get('/work-order/request/edit/{id}', 'edit')->name('work-order.request.edit'); //view form pengerjaan
         Route::post('/work-order/request/update/{id}', 'update')->name('work-order.request.update'); //update data
-        Route::post('/work-order/request/delete/{id}', 'destroy')->name('work-order.request.delete'); //hapus data
     });
     // halaman respon Work order
     Route::controller(WorkOrderResponseController::class)->group(function () {
@@ -113,15 +113,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/work-order/response/get', 'get')->name('work-order.response.get'); //ambil data
         Route::get('/work-order/response/edit/{id}', 'edit')->name('work-order.response.edit'); //view form penyelesaian
         Route::post('/work-order/response/update/{id}', 'update')->name('work-order.response.update'); //update data
-        Route::post('/work-order/response/delete/{id}', 'destroy')->name('work-order.response.delete'); //hapus data
     });
     // halaman realisasi Work order
     Route::controller(WorkOrderRealizationController::class)->group(function () {
         Route::get('/work-order/realization', 'index')->name('work-order.realization'); //view halaman permintaan
         Route::get('/work-order/realization/get', 'get')->name('work-order.realization.get'); //ambil data
-        Route::get('/work-order/realization/edit/{id}', 'edit')->name('work-order.realization.edit'); //view form penyelesaian
-        Route::post('/work-order/realization/update/{id}', 'update')->name('work-order.realization.update'); //update data
-        Route::post('/work-order/realization/delete/{id}', 'destroy')->name('work-order.realization.delete'); //hapus data
     });
 
 });

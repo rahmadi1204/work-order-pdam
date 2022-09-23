@@ -75,12 +75,13 @@
                             <div class="form-group">
                                 <label for="filter">Filter
                                 </label>
-                                <select name="status" id="filterActive" class="form-control">
-                                    <option value="all" {{ $filter == 'all' ? 'selected' : '' }}>Semua</option>
+                                <select name="status" id="filterActive" class="form-control select2" multiple>
                                     <option value="pending" {{ $filter == 'pending' ? 'selected' : '' }}>Pending
                                     </option>
                                     <option value="proses" {{ $filter == 'proses' ? 'selected' : '' }}>Proses</option>
                                     <option value="selesai" {{ $filter == 'selesai' ? 'selected' : '' }}>Selesai
+                                    </option>
+                                    <option value="cancel" @if ($filter != 'all') selected @endif>Cancel
                                     </option>
                                 </select>
                             </div>
@@ -95,7 +96,8 @@
                                         <i class="far fa-calendar-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="date" class="form-control float-right" id="reservation">
+                                <input type="text" name="date" class="form-control float-right" id="reservation"
+                                    value="{{ now()->startOfMonth()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}">
                             </div>
                         </div>
                     </div>
@@ -117,6 +119,9 @@
                             </th>
                             <th>
                                 Pelanggan
+                            </th>
+                            <th>
+                                Keterangan
                             </th>
                             <th style="width: 8%" class="text-center">
                                 Status

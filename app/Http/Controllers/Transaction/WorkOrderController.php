@@ -48,8 +48,8 @@ class WorkOrderController extends Controller
         if ($request->client != null) {
             $query->whereRelation('client', 'nama', 'like', '%' . $request->client . '%');
         }
-        if ($request->status != 'all') {
-            $query->where('status_work_order', $request->status);
+        if ($request->status != null) {
+            $query->whereIn('status_work_order', $request->status);
         }
         if ($request->date != null) {
             $start_date = substr($request->date, 0, 10);
@@ -83,6 +83,17 @@ class WorkOrderController extends Controller
             ->editColumn('client_id', function ($data) {
                 return $data->client->nama ?? '-';
             })
+            ->editColumn('keterangan_work_order', function ($data) {
+                if ($data->status_work_order == 'pending') {
+                    return $data->keterangan_work_order;
+                } else if ($data->status_work_order == 'proses') {
+                    return $data->keterangan_petugas;
+                } else if ($data->status_work_order == 'selesai') {
+                    return $data->keterangan_selesai;
+                } else if ($data->status_work_order == 'batal') {
+                    return $data->keterangan_work_order;
+                }
+            })
             ->addColumn('status_work_order', function ($data) {
                 if ($data->status_work_order == 'pending') {
                     return '<span class="badge badge-warning">' . strtoupper($data->status_work_order) . '</span>';
@@ -100,10 +111,13 @@ class WorkOrderController extends Controller
                 $action = '<div class="d-flex justify-content-center">';
                 if ($data->status_work_order == 'pending') {
                     $action .= '<a href="' . url('work-order/edit', $data->uuid) . '" class="btn btn-warning mx-1"><i class="fas fa-pencil-alt"></i>Edit</a>';
-                    $action .= '<a href="#" onclick="deleteConfirm(' . $data->id . ',`' . $data->nama . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
+                    $action .= '<a href="#" onclick="deleteConfirm(' . $data->id . ',`' . $data->type->jenis_work_order . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
                 } else if ($data->status_work_order == 'proses') {
                     $action .= '<a href="' . url('work-order/view', $data->uuid) . '" class="btn btn-info mx-1"><i class="fas fa-eye"></i>View</a>';
                     $action .= '<a href="#" class="btn btn-secondary disabled mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
+                } else if ($data->status_work_order == 'cancel') {
+                    $action .= '<a href="' . url('work-order/edit', $data->uuid) . '" class="btn btn-warning mx-1"><i class="fas fa-pencil-alt"></i>Edit</a>';
+                    $action .= '<a href="#" onclick="deleteConfirm(' . $data->id . ',`' . $data->type->jenis_work_order . '`)" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
                 } else {
                     $action .= '<a href="' . url('work-order/view', $data->uuid) . '" class="btn btn-success mx-1"><i class="fas fa-eye"></i>View</a>';
                     $action .= '<a href="#" class="btn btn-secondary disabled mx-1"><i class="fas fa-trash-alt"></i>Delete</a>';
@@ -236,10 +250,37 @@ class WorkOrderController extends Controller
             $data = WorkOrder::findOrFail($id);
             $data->delete();
             DB::commit();
-            return redirect()->route('work-order')->with('success', 'Data work order berhasil dihapus');
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Work Order berhasil dihapus',
+            ]);
         } catch (\Throwable$th) {
             DB::rollback();
-            return redirect()->back()->with('error', 'Data work order gagal dihapus : ' . $th->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data Work Order gagal dihapus : ' . $th->getMessage(),
+            ]);
+        }
+    }
+    public function cancel($id)
+    {
+        // proses cancel data
+        DB::beginTransaction();
+        try {
+            $data = WorkOrder::findOrFail($id);
+            $data->status_work_order = 'cancel';
+            $data->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Work Order berhasil dicancel',
+            ]);
+        } catch (\Throwable$th) {
+            DB::rollback();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data Work Order gagal dicancel : ' . $th->getMessage(),
+            ]);
         }
     }
 }
