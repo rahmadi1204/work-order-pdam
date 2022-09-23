@@ -9,7 +9,9 @@
                 <div class="card-body row">
                     <div class="col-5 text-center d-flex align-items-center justify-content-center">
                         <div class="">
-                            <h2>Whatsapp <strong id="status-wa"><i class="fas fa-spinner fa-spin "></i> Connecting...</strong>
+                            <h2>Whatsapp <br>
+                                <strong id="status-wa"><i class="fas fa-spinner fa-spin "></i>
+                                    Menghubungkan...</strong>
                             </h2>
                             <p id="status-message"></p>
                             <a href="#" onclick="qrcode()">
@@ -64,40 +66,40 @@
                     from: "{{ $data->phone }}"
                 },
                 success: function(response) {
-                    console.log(response);
                     if (response) {
                         if (response.data.status == 'authenticated') {
-                            $('#status-wa').html('Connected');
+                            $('#status-wa').html('Terhubung');
                             $('#status-wa').removeClass('text-danger');
                             $('#status-wa').addClass('text-success');
-                            $('#status-message').html(response.message);
                             $('#qrcode').attr('src', "{{ asset('images/wifi.svg') }}");
+                            $('#status-message').html('');
+                            $('#footer-qrcode').html('');
+                            clearInterval();
                         } else {
-                            $('#status-wa').html('Disconnected');
+                            $('#status-wa').html('Terputus');
                             $('#status-wa').removeClass('text-success');
                             $('#status-wa').addClass('text-danger');
-                            $('#status-message').html(response.message);
                         }
                     } else {
-                        $('#status-wa').html('Disconnected');
+                        $('#status-wa').html('Terputus');
                         $('#status-wa').removeClass('text-success');
                         $('#status-wa').addClass('text-danger');
-                        $('#status-message').html(response.message);
                     }
                 },
                 error: function(response) {
                     console.log(response);
-                    $('#status-wa').html('Disconnected');
+                    $('#status-wa').html('Terputus');
                     $('#status-wa').removeClass('text-success');
                     $('#status-wa').addClass('text-danger');
-                    $('#status-message').html(response.message);
+                    $('#status-message').html('Klik gambar untuk menghubungkan');
                 }
             });
         }
 
         function qrcode() {
             $("#footer-qrcode").text(
-                "Please Wait...");
+                "Tunggu sebentar...");
+            let time = 28000;
             $.ajax({
                 type: "post",
                 url: "{{ url($data->url_server) }}" + "/api/delete",
@@ -122,36 +124,31 @@
                     from: "{{ $data->phone }}"
                 },
                 success: function(response) {
-                    console.log(response);
                     let success = response.success;
                     if (success) {
                         let qrcode = response.data.qr;
-                        let message = response.message;
-                        $('#status-message').html(message);
-                        $('#qrcode').attr('src', qrcode);
-                        $('#status-wa').html('Disconnected');
+                        $('#status-message').html('Scan QR Code');
+                        $('#status-wa').html('Terputus');
                         $('#status-wa').removeClass('text-success');
                         $('#status-wa').addClass('text-danger');
+                        $('#qrcode').attr('src', qrcode);
                         let time = 28000;
                         setInterval(function() {
                             time = time -
                                 2000; //reduce each second
                             $("#footer-qrcode").text(
-                                "Will close after " + time /
-                                1000 + " seconds");
+                                "Akan ditutup dalam " + time /
+                                1000 + " detik");
                             if (time < 0) {
-                                $("#footer-qrcode").text(
-                                    "Closed");
-                                $('#qrcode').attr('src', "{{ asset('images/click.jpg') }}");
-                                $('#status-message').html('');
                                 $('#footer-qrcode').html('');
-                                clearInterval();
+                                $('#qrcode').attr('src', "{{ asset('images/click.jpg') }}");
+                                window.location.reload();
                             } else {
                                 checkWa();
+                                clearInterval();
                             }
                         }, 2000);
                     } else {
-                        $('#status-message').html(response.message);
                         checkWa();
                     }
                 }

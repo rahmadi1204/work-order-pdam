@@ -14,7 +14,7 @@ class WorkOrderResponseController extends Controller
 {
     public function index()
     {
-        $title = 'Work Order';
+        $title = 'Tanggapan Surat Perintah Kerja';
         $filter = 'proses';
         return view('pages.transaction.work_order', compact([
             'title',

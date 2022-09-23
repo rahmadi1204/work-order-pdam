@@ -12,7 +12,7 @@ class WorkOrderRealizationController extends Controller
 {
     public function index()
     {
-        $title = 'Work Order';
+        $title = 'Realisasi Surat Perintah Kerja';
         $filter = 'selesai';
         return view('pages.transaction.work_order', compact([
             'title',

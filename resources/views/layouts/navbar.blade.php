@@ -3,7 +3,7 @@
         <a href="{{ asset('/assets') }}/index3.html" class="navbar-brand">
             <img src="{{ asset('/images/logo-pdam.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
-            <span class="brand-text font-weight-light">PDAM Work Order</span>
+            <span class="brand-text font-weight-light">SISPEKA <small>PDAM KOTA MADIUN</small></span>
         </a>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -15,7 +15,7 @@
                 <!-- Left navbar links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="nav-link">Halaman Utama</a>
                     </li>
                     @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin')
                         <li class="nav-item dropdown">

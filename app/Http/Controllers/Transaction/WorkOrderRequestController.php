@@ -16,7 +16,7 @@ class WorkOrderRequestController extends Controller
     use UploadFile;
     public function index()
     {
-        $title = 'Work Order';
+        $title = 'Permintaan Surat Perintah Kerja';
         $filter = 'pending';
         return view('pages.transaction.work_order', compact([
             'title',

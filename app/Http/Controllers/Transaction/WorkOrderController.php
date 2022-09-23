@@ -19,7 +19,7 @@ class WorkOrderController extends Controller
         // if (auth()->user()->role != 'admin' || auth()->user()->role != 'super admin') {
         //     return redirect()->back();
         // }
-        $title = 'Work Order';
+        $title = 'Surat Perintah Kerja';
         $filter = 'all';
         return view('pages.transaction.work_order', compact([
             'title',
