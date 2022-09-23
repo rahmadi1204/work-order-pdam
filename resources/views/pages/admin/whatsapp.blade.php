@@ -96,6 +96,8 @@
         }
 
         function qrcode() {
+            $("#footer-qrcode").text(
+                "Please Wait...");
             $.ajax({
                 type: "post",
                 url: "{{ url($data->url_server) }}" + "/api/delete",
