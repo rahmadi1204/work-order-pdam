@@ -69,7 +69,7 @@
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" class="nav-link dropdown-toggle">Administrator</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="{{ url('admin/whatsapps') }}" class="dropdown-item text-danger">WA notif</a>
+                                <li><a href="{{ url('admin/whatsapps') }}" class="dropdown-item">Koneksi WA</a>
                                 </li>
                                 <li><a href="{{ url('admin/users') }}" class="dropdown-item">Data Admin</a></li>
                                 <li><a href="{{ url('admin/imports') }}" class="dropdown-item">Import Data</a></li>
