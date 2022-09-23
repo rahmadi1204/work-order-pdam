@@ -31,7 +31,7 @@
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" class="nav-link dropdown-toggle">Jenis</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="{{ url('/types/work-order') }}" class="dropdown-item">Jenis Work Order</a></li>
+                                <li><a href="{{ url('/types/work-order') }}" class="dropdown-item">Jenis SPK</a></li>
                                 {{-- <li><a href="{{ url('/types/document') }}" class="dropdown-item text-danger">Jenis
                                         Dokumen</a></li> --}}
                             </ul>
@@ -39,13 +39,13 @@
                     @endif
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">Work Order</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle">SPK</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin')
                                 <li><a href="{{ url('/work-order') }}" class="dropdown-item">Lihat</a></li>
                             @else
                                 <li><a href="{{ url('/work-order/request') }}" class="dropdown-item">Permintaan</a></li>
-                                <li><a href="{{ url('/work-order/response') }}" class="dropdown-item">Respon</a></li>
+                                <li><a href="{{ url('/work-order/response') }}" class="dropdown-item">Tanggapan</a></li>
                                 <li><a href="{{ url('/work-order/realization') }}" class="dropdown-item">Realisasi</a></li>
                             @endif
                         </ul>
@@ -55,10 +55,9 @@
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" class="nav-link dropdown-toggle text-danger">Laporan</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="{{ url('report/work-order') }}" class="dropdown-item text-danger">Rekap Work
-                                        Order</a>
+                                <li><a href="{{ url('report/work-order') }}" class="dropdown-item text-danger">Rekap
+                                        SPK</a>
                                 </li>
-                                <li><a href="{{ url('report/spk') }}" class="dropdown-item text-danger">Rekap SPK</a></li>
                                 <li><a href="{{ url('report/staff-spk') }}" class="dropdown-item text-danger">SPK Tiap
                                         Petugas</a></li>
                             </ul>
