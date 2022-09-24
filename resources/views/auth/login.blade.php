@@ -40,7 +40,7 @@
                             @csrf
                             <div class="form-group">
                                 <input type="text" name="username" class="form-control" placeholder="Username"
-                                    value="admin" required>
+                                    value="superadmin" required>
                             </div>
                             <div class="form-group">
                                 <input id="password-field" name="password" type="password" class="form-control"

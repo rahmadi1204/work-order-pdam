@@ -74,24 +74,7 @@
         $('input[name=status]').val('all');
         datatable();
     });
-    // mengosongkan field pencarian lain lalu cari data
-    $('#filterActive').change(function(e) {
-        e.preventDefault();
-        $('input[name=type_id]').val('');
-        $('input[name=name]').val('');
-        $('input[name=client]').val('');
-        $('input[name=date]').val('');
-        datatable();
-    });
-    // filter tanggal
-    $('#reservation').blur(function(e) {
-        e.preventDefault();
-        datatable();
-    });
-    $('#reservation').change(function(e) {
-        e.preventDefault();
-        datatable();
-    });
+
     // hapus data
     function deleteConfirm(id, name) {
         console.log(id, name);

@@ -26,5 +26,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::controller(WhatsappController::class)->group(function () {
         Route::get('/whatsapps', 'index')->name('whatsapp');
         Route::post('/whatsapps/update/{id}', 'update')->name('whatsapp.update');
+        Route::post('/whatsapps/send', 'send')->name('whatsapp.send');
     });
 });

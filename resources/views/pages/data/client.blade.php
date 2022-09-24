@@ -84,12 +84,15 @@
                             <label for="start_date">Tanggal</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-info search"><i class="fa fa-search"></i></button>
+                                </div>
+                                <input type="text" name="date" class="form-control float-right" id="reservation"
+                                    value="{{ '2011-01-01' .' - ' .now()->endOfyear()->format('Y-m-d') }}">
+                                {{-- <div class="input-group-append">
                                     <span class="input-group-text bg-info">
                                         <i class="far fa-calendar-alt"></i>
                                     </span>
-                                </div>
-                                <input type="text" name="date" class="form-control float-right" id="reservation"
-                                    value="{{ '2011-01-01 - ' .now()->endOfMonth()->format('Y-m-d') }}">
+                                </div> --}}
                             </div>
                         </div>
                     </div>

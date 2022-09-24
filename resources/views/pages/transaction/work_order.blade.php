@@ -75,15 +75,21 @@
                             <div class="form-group">
                                 <label for="filter">Filter
                                 </label>
-                                <select name="status" id="filterActive" class="form-control select2" multiple>
-                                    <option value="pending" {{ $filter == 'pending' ? 'selected' : '' }}>Pending
-                                    </option>
-                                    <option value="proses" {{ $filter == 'proses' ? 'selected' : '' }}>Proses</option>
-                                    <option value="selesai" {{ $filter == 'selesai' ? 'selected' : '' }}>Selesai
-                                    </option>
-                                    <option value="cancel" @if ($filter != 'all') selected @endif>Cancel
-                                    </option>
-                                </select>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-info search"><i
+                                                class="fa fa-search"></i></button>
+                                    </div>
+                                    <select name="status" id="filterActive" class="form-control select2" multiple>
+                                        <option value="pending" {{ $filter == 'pending' ? 'selected' : '' }}>Pending
+                                        </option>
+                                        <option value="proses" {{ $filter == 'proses' ? 'selected' : '' }}>Proses</option>
+                                        <option value="selesai" {{ $filter == 'selesai' ? 'selected' : '' }}>Selesai
+                                        </option>
+                                        <option value="cancel" @if ($filter != 'all') selected @endif>Cancel
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -92,12 +98,15 @@
                             <label for="start_date">Tanggal</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text bg-info">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </span>
+                                    <button type="button" class="btn btn-info search"><i class="fa fa-search"></i></button>
                                 </div>
                                 <input type="text" name="date" class="form-control float-right" id="reservation"
                                     value="{{ now()->startOfMonth()->format('Y-m-d') .' - ' .now()->endOfyear()->format('Y-m-d') }}">
+                                {{-- <div class="input-group-append">
+                                    <span class="input-group-text bg-info">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

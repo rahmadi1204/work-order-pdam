@@ -197,3 +197,10 @@
 
     })
 </script>
+<script>
+    setTimeout(function() {
+        $('.alert-success').toggle(1000);
+        $('.alert-info').toggle(1000);
+        $('.alert-danger').toggle(1000);
+    }, 5000);
+</script>
