@@ -46,21 +46,33 @@
                             <input type="submit" class="btn btn-primary" value="Update">
                         </div>
                     </form>
-                    <form action="{{ route('whatsapp.send') }}" method="post" id="form-send-message">
+                    <form action="{{ route('whatsapp.send') }}" method="post" id="form-send-message" class="d-none"
+                        enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="from" value="{{ $data->phone }}">
                         <div class="form-group">
                             <label for="phone">Nomor Tujuan</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fab fa-whatsapp"></i></span>
                                 </div>
-                                <input type="text" name="phone" class="form-control hp" placeholder="Nomor Whatsapp"
+                                <input type="text" name="receiver" class="form-control hp" placeholder="Nomor Whatsapp"
                                     value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="message">Pesan</label>
-                            <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="message" id="message" cols="30" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">File</label>
+                            <br>
+                            <input type="file" name="file" id="file" class="form-control"
+                                accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
+                            <code>jenis file : .xlsx,.xls,image/*,.doc, .docx,.ppt,
+                                .pptx,.txt,.pdf</code>
+                            <br>
+                            <code>ukuran maksimal : 5mb</code>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Kirim">
@@ -93,19 +105,19 @@
                             $('#qrcode').attr('src', "{{ asset('images/whatsapp.png') }}");
                             $('#status-message').html('');
                             $('#footer-qrcode').html('');
-                            $('#form-send-message').show();
-                            clearInterval();
+                            $('#form-send-message').removeClass('d-none');
+                            clearInterval(intervalqr);
                         } else {
                             $('#status-wa').html('Terputus');
                             $('#status-wa').removeClass('text-success');
                             $('#status-wa').addClass('text-danger');
-                            $('#form-send-message').hide();
+                            $('#form-send-message').addClass('d-none');
                         }
                     } else {
                         $('#status-wa').html('Terputus');
                         $('#status-wa').removeClass('text-success');
                         $('#status-wa').addClass('text-danger');
-                        $('#form-send-message').hide();
+                        $('#form-send-message').addClass('d-none');
                     }
                 },
                 error: function(response) {
@@ -114,7 +126,7 @@
                     $('#status-wa').removeClass('text-success');
                     $('#status-wa').addClass('text-danger');
                     $('#status-message').html('Klik gambar untuk menghubungkan');
-                    $('#form-send-message').hide();
+                    $('#form-send-message').addClass('d-none');
                 }
             });
         }
@@ -153,7 +165,7 @@
                         $('#status-wa').removeClass('text-success');
                         $('#status-wa').addClass('text-danger');
                         $('#status-message').html('Klik gambar untuk menghubungkan');
-                        $('#form-send-message').hide();
+                        $('#form-send-message').addClass('d-none');
                     } else {
                         checkStatus();
                     }
@@ -179,7 +191,7 @@
                         $('#status-wa').addClass('text-danger');
                         $('#qrcode').attr('src', qrcode);
                         let time = 28000;
-                        setInterval(function() {
+                        const intervalqr = setInterval(function() {
                             time = time -
                                 2000; //reduce each second
                             $("#footer-qrcode").text(
@@ -191,7 +203,6 @@
                                 window.location.reload();
                             } else {
                                 checkStatus();
-                                clearInterval();
                             }
                         }, 2000);
                     } else {

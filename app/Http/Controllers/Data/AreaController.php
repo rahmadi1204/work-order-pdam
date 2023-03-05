@@ -108,7 +108,7 @@ class AreaController extends Controller
             } else {
                 $kode_jalan = $request->kode_jalan;
             }
-            $uuid = 'AREA-' . $kode_area . '.' . $kode_wilayah . '.' . $kode_jalan;
+            $uuid = $kode_area . '.' . $kode_wilayah . '.' . $kode_jalan;
             $store = Area::create([
                 'uuid' => $uuid,
                 'kode_area' => $request->kode_area,
@@ -118,7 +118,7 @@ class AreaController extends Controller
                 'nama_jalan' => $request->nama_jalan,
             ]);
             DB::commit();
-            return redirect()->back()->with('success', 'Data berhasil disimpan');
+            return redirect()->route('area')->with('success', 'Data berhasil disimpan');
         } catch (\Throwable$th) {
             DB::rollback();
             return redirect()->back()->with('error', 'Data gagal disimpan : ' . $th->getMessage());
@@ -136,14 +136,14 @@ class AreaController extends Controller
             'data',
         ]));
     }
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         // proses validasi data
         $validate = $request->validate([
             'kode_area' => 'required',
             'nama_area' => 'required',
             'kode_wilayah' => 'required',
-            'kode_jalan' => 'required | unique:areas,kode_jalan,' . $request->uuid . ',uuid',
+            'kode_jalan' => 'required',
             'nama_jalan' => 'required',
         ], [
             'kode_area.required' => 'Kode Area tidak boleh kosong',
@@ -172,13 +172,13 @@ class AreaController extends Controller
             } else {
                 $kode_jalan = $request->kode_jalan;
             }
-            $uuid = 'AREA-' . $kode_area . '.' . $kode_wilayah . '.' . $kode_jalan;
+            $uuid = $kode_area . '.' . $kode_wilayah . '.' . $kode_jalan;
             //check kode sudah digunakan atau belum
             // $check = WorkOrder::where('area_id', $uuid)->count();
             // if ($check > 0) {
             //     return redirect()->back()->with('error', 'Kode sudah digunakan, data kode tidak dapat diubah');
             // }
-            $update = Area::where('uuid', $request->uuid)->update([
+            $update = Area::where('id', $id)->update([
                 'uuid' => $uuid,
                 'kode_area' => $request->kode_area,
                 'nama_area' => $request->nama_area,
@@ -187,7 +187,8 @@ class AreaController extends Controller
                 'nama_jalan' => $request->nama_jalan,
             ]);
             DB::commit();
-            return redirect()->route('area.edit', $update->uuid)->with('success', 'Data berhasil diubah');
+            // return redirect()->route('area.edit', $uuid)->with('success', 'Data berhasil diubah');
+            return redirect()->route('area')->with('success', 'Data berhasil diubah');
         } catch (\Throwable$th) {
             DB::rollback();
             return redirect()->back()->with('error', 'Data gagal diubah : ' . $th->getMessage());

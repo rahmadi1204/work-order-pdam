@@ -3,7 +3,7 @@
     <section class="content">
         <div class="container">
             <form action="{{ isset($data) ? route('work-order.update', $data->id) : route('work-order.store') }}"
-                method="post">
+                method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -69,10 +69,14 @@
                                         @endisset
                                     </select>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="deskripsi">Deskripsi</label>
-                                    <textarea name="deskripsi" id="deskripsi" class="form-control" rows="3" placeholder="Enter ...">{{ $data->deskripsi ?? old('deskripsi') }}</textarea>
-                                </div> --}}
+                                <div class="form-group">
+                                    <label for="no_work_order">File</label>
+                                    <div class="custom-file">
+                                        <input type="file" name="file_document" class="custom-file-input"
+                                            id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,6 +143,14 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <div class="form-group">
+                            <label for="deskripsi">Text Document</label>
+                            <textarea name="text_document" id="summernote">
+                                {{ $data->text_document ?? old('text_document') }}
+                              </textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('dashboard') }}" class="btn btn-secondary mx-1">Kembali</a>
                             <button type="submit" class="btn btn-primary mx-1">Simpan</button>
@@ -152,6 +164,16 @@
 @endsection
 @section('scripts')
     <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
         $('#jenis_work_order').change(function(e) {
             e.preventDefault();
             let filter = $(this).find(':selected').data('responder');

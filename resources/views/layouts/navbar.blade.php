@@ -1,6 +1,6 @@
 <nav class="main-header navbar navbar-expand-md navbar-dark navbar-blue">
     <div class="container">
-        <a href="{{ asset('/assets') }}/index3.html" class="navbar-brand">
+        <a href="{{ url('/') }}" class="navbar-brand">
             <img src="{{ asset('/images/logo-pdam.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
             <span class="brand-text font-weight-light">SISPEKA <small>PDAM KOTA MADIUN</small></span>

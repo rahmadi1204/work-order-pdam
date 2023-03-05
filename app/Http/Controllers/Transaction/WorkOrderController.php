@@ -157,6 +157,7 @@ class WorkOrderController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         // validasi
         $request->validate([
             'tgl_work_order' => 'required',
@@ -181,6 +182,13 @@ class WorkOrderController extends Controller
             $workOrder->longitude = $request->longitude;
             $workOrder->google_maps = $request->google_maps;
             $workOrder->keterangan_work_order = $request->keterangan_work_order;
+            $workOrder->text_document = $request->text_document;
+            if ($request->hasFile('file_document')) { // jika ada file yang diupload
+                $file = $request->file('file_document'); // ambil file yang diupload
+                $filename = time() . '.' . $file->getClientOriginalExtension(); // nama file
+                $file->move('uploads/work_order/', $filename); // upload file
+                $workOrder->file_document = $filename; // simpan nama file ke database
+            }
             $workOrder->save();
             DB::commit();
             return redirect()->route('work-order')->with('success', 'Data Work Order berhasil ditambahkan');
@@ -234,6 +242,17 @@ class WorkOrderController extends Controller
             $workOrder->longitude = $request->longitude;
             $workOrder->google_maps = $request->google_maps;
             $workOrder->keterangan_work_order = $request->keterangan_work_order;
+            $workOrder->text_document = $request->text_document;
+            if ($request->hasFile('file_document')) {
+                $oldFile = $workOrder->file_document; // cek file lama
+                if ($oldFile != null) {
+                    unlink('uploads/work_order/' . $oldFile); // hapus file lama
+                }
+                $file = $request->file('file_document'); // ambil file yang diupload
+                $filename = time() . '.' . $file->getClientOriginalExtension(); // nama file
+                $file->move('uploads/work_order/', $filename); // upload file
+                $workOrder->file_document = $filename; // simpan nama file ke database
+            }
             $workOrder->save();
             DB::commit();
             return redirect()->route('work-order')->with('success', 'Data Work Order berhasil diubah');

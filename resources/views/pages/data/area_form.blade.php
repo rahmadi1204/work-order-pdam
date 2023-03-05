@@ -3,7 +3,7 @@
     <section class="content">
         <div class="container">
             <div class="callout callout-info">
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12">
                         <h5>Aturan Kode</h5>
 
@@ -13,9 +13,9 @@
                             14,15, 16, 17, 18, 19, 20, dst.
                         </p>
                     </div>
-                </div>
+                </div> --}}
             </div>
-            <form action="{{ isset($data) ? route('area.update', $data->uuid) : route('area.store') }}" method="post">
+            <form action="{{ isset($data) ? route('area.update', $data->id) : route('area.store') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -32,21 +32,26 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="data_area">Pilih Area</label>
-                                    <select name="data_area" id="data_area" class="form-control">
-                                        <option value="">Pilih Area</option>
-                                        @foreach ($areas as $item)
-                                            <option value="{{ $item->kode_area }}"
-                                                {{ old('data_area') == $item->kode_area ? 'selected' : '' }}
-                                                {{ isset($data) && $data->kode_area == $item->kode_area ? 'selected' : '' }}
-                                                data-name="{{ $item->nama_area }}">
-                                                {{ $item->nama_area }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if (isset($data))
+                                        <input type="hidden" name="data_area" id="data_area" class="form-control"
+                                            value="{{ $data->kode_area }}">
+                                    @else
+                                        <label for="data_area">Pilih Area</label>
+                                        <select name="data_area" id="data_area" class="form-control">
+                                            <option value="">Pilih Area</option>
+                                            @foreach ($areas as $item)
+                                                <option value="{{ $item->kode_area }}"
+                                                    {{ old('data_area') == $item->kode_area ? 'selected' : '' }}
+                                                    {{ isset($data) && $data->kode_area == $item->kode_area ? 'selected' : '' }}
+                                                    data-name="{{ $item->nama_area }}">
+                                                    {{ $item->nama_area }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="kode_area">Kode Area</label>
-                                    <input type="text"name="kode_area" id="kode_area" class="form-control"
+                                    <input type="number"name="kode_area" id="kode_area" class="form-control"
                                         value="{{ $data->kode_area ?? old('kode_area') }}" required>
                                 </div>
                                 <div class="form-group">
@@ -73,16 +78,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="kode_wilayah">Kode Wilayah</label>
-                                    <select name="kode_area_wilayah" id="kode_area_wilayah" class="form-control mb-2">
+                                    {{-- <select name="kode_area_wilayah" id="kode_area_wilayah" class="form-control mb-2">
                                         <option value="">Pilih Wilayah</option>
-                                    </select>
-                                    <input type="text" name="kode_wilayah" id="kode_wilayah"
+                                    </select> --}}
+                                    <input type="number" name="kode_wilayah" id="kode_wilayah"
                                         value="{{ $data->kode_wilayah ?? old('kode_wilayah') }}" class="form-control"
                                         required>
                                 </div>
                                 <div class="form-group">
                                     <label for="kode_jalan">Kode Jalan</label>
-                                    <input type="text" name="kode_jalan" id="kode_jalan"
+                                    <input type="number" name="kode_jalan" id="kode_jalan"
                                         value="{{ $data->kode_jalan ?? old('kode_jalan') }}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
